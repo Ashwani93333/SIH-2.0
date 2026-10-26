@@ -1,0 +1,32 @@
+{
+  "platform": "INSTITUTION",
+  "name": "Institution Portal (Applicant Side)",
+  "description": "Synthetic data for College Administrators, Principals, and Registrars",
+  "active_college": {
+    "id": "INST-DELHI-001",
+    "name": "Delhi Institute of Engineering & Technology",
+    "region": "Northern",
+    "state": "Delhi",
+    "trust": "Delhi Educational and Research Foundation",
+    "accreditation": "NBA Tier-II"
+  },
+  "applications": [
+    {
+      "id": "AICTE/2026/APP-1042",
+      "type": "EXTENSION_OF_APPROVAL",
+      "stage": "UNDER_REVIEW",
+      "enrolled_intake": 480,
+      "faculty_count": 18,
+      "fsr": 26.67,
+      "status": "DEFICIENCY_RESPONSE_SUBMITTED"
+    }
+  ],
+  "checklist_templates": [
+    "Land Title & Registry Deed",
+    "Municipal Sanctioned Building Plan",
+    "Fire Safety NOC",
+    "Faculty Cadre Roster CSV",
+    "State Technical University Affiliation Order",
+    "Endowment Joint Fixed Deposit Receipt (FDR)"
+  ]
+}

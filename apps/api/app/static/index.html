@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AICTE FlowGuard — Regulatory Approval & Statutory Compliance Architecture</title>
+  <meta name="description" content="AICTE FlowGuard: Automated statutory governance, multi-stage scrutiny, and compliance verification for technical education institutions across India.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <!-- Top Statutory Announcement & Honest Labelling Bar (§10 #6 & §11) -->
+  <div class="statutory-banner">
+    <div>
+      <span class="emblem-dot">🏛️</span>
+      <strong>AICTE FlowGuard</strong> &bull; Regulatory Approval & Statutory Compliance System &bull; 
+      <span class="honest-tag">PROTOTYPE &bull; NOT AN OFFICIAL AICTE SYSTEM &bull; ALL DATA IS SYNTHETIC &bull; HUMANS MAKE EVERY DECISION</span>
+    </div>
+    <div class="banner-right">
+      <span class="sim-badge" id="simTimeDisplay">Simulated Clock: Day 0 (Normal)</span>
+      <span class="sim-tag-pill">[Simulated Sandbox]</span>
+    </div>
+  </div>
+
+  <!-- Main Header -->
+  <header class="main-header">
+    <div class="header-left">
+      <div class="logo-container" onclick="switchTab('hero')">
+        <div class="aicte-emblem">
+          <svg viewBox="0 0 40 40" width="36" height="36">
+            <circle cx="20" cy="20" r="18" fill="#FBF8F3" stroke="#8B5E3C" stroke-width="1.5"/>
+            <path d="M 6 14 A 14 14 0 0 1 34 14 Z" fill="#FF9933" />
+            <path d="M 6 26 A 14 14 0 0 0 34 26 Z" fill="#138808" />
+            <circle cx="20" cy="20" r="4" fill="none" stroke="#000080" stroke-width="1.5"/>
+            <circle cx="20" cy="20" r="1.5" fill="#8B5E3C"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <div class="brand-title">AICTE</div>
+          <div class="brand-sub">APPROVE &bull; FLOWGUARD</div>
+        </div>
+      </div>
+
+      <!-- Dynamic Role-Based Navigation Links (§1.1) -->
+      <nav class="nav-links" id="dynamicNavLinks">
+        <!-- Rendered by JavaScript based on active role -->
+      </nav>
+    </div>
+
+    <div class="header-right">
+      <div class="role-selector-wrapper">
+        <span class="role-label">ROLE:</span>
+        <div class="role-dropdown-container">
+          <select id="userRoleSelect" onchange="handleRoleChange(this.value)">
+            <option value="Institution">Institution (Applicant: Delhi Institute of Engineering)</option>
+            <option value="Scrutiny Officer" selected>Scrutiny Officer (Dr. A. K. Sharma)</option>
+            <option value="Regional Officer">Regional Officer (Dr. R. K. Singhania, Northern)</option>
+            <option value="Bureau Officer">Bureau Officer (Shri Vikram Malhotra, Central)</option>
+            <option value="EVC Coordinator">EVC Coordinator (Prof. Ramesh Rao)</option>
+            <option value="EVC Member">EVC Member (Dr. Sunita Verma)</option>
+            <option value="Committee Member">Committee Member (Prof. H. R. Venkatesh)</option>
+            <option value="Competent Authority">Competent Authority (Decision Authority)</option>
+            <option value="Administrator">Administrator (System & Rules)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="notif-badge-wrapper" onclick="toggleNotifModal()">
+        <button class="icon-btn" title="Statutory Alerts & SLA Notifications">
+          🔔
+          <span class="badge-count" id="notifCount">3</span>
+        </button>
+      </div>
+
+      <div class="user-profile-badge">
+        <div class="avatar-circle" id="userAvatar">S</div>
+        <div class="user-info">
+          <div class="user-name" id="userName">Dr. A. K. Sharma</div>
+          <div class="user-role-text" id="userRoleDesc">Scrutiny Officer &bull; Scrutiny Desk</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Scenario Quick Switcher Bar (Canonical S1–S8 / APP-1042 to APP-1005) -->
+  <div class="scenario-bar">
+    <div class="scenario-label">
+      <span class="pill-label">CANONICAL CASES:</span>
+    </div>
+    <div class="scenario-pills" id="scenarioPills">
+      <!-- Injected by JS -->
+    </div>
+    <div class="sim-actions">
+      <button class="btn-sm btn-ghost" onclick="advanceSimTime(1)" title="Advance simulated clock by 1 day">+1 Day</button>
+      <button class="btn-sm btn-ghost" onclick="advanceSimTime(5)" title="Advance simulated clock by 5 days">+5 Days</button>
+      <button class="btn-sm btn-secondary" onclick="resetDemoState()" title="Reset all scenarios back to baseline">↺ Reset Demo</button>
+    </div>
+  </div>
+
+  <main class="main-content">
+    <!-- VIEW 1: HERO VIEW / PUBLIC OVERVIEW -->
+    <section id="view-hero" class="view-section active">
+      <div class="hero-container">
+        <div class="hero-left">
+          <div class="statutory-pill">
+            <span class="shield-icon">🛡️</span>
+            AICTE FlowGuard &bull; Unified Regulatory Architecture
+          </div>
+
+          <h1 class="hero-title">
+            Unified Regulatory Architecture for AICTE Approvals
+          </h1>
+
+          <p class="hero-description">
+            Automated statutory compliance and regulatory workflow management for technical education institutions across India.
+            Deterministic rule engine checks, assistive Document AI extraction, explainable risk scoring, and immutable cryptographic audit trails.
+          </p>
+
+          <div class="hero-actions">
+            <button class="btn-primary" onclick="openCurrentRolePrimaryTab()">
+              Go to Role Dashboard &rarr;
+            </button>
+            <button class="btn-secondary" onclick="switchTab('applications')">
+              📊 Approval Pipeline Tracker
+            </button>
+          </div>
+
+          <div class="hero-features">
+            <div class="feature-item">
+              <span class="check-circle">&#10003;</span>
+              <span>Scoped RBAC (§5)</span>
+            </div>
+            <div class="feature-item">
+              <span class="check-circle">&#10003;</span>
+              <span>Multi-Stage Scrutiny (§2)</span>
+            </div>
+            <div class="feature-item">
+              <span class="check-circle">&#10003;</span>
+              <span>Immutable Audit (§6.5)</span>
+            </div>
+            <div class="feature-item">
+              <span class="check-circle">&#10003;</span>
+              <span>SETU Impact Radar (§6.4)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <div class="institutional-card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">Institutional Access</h3>
+                <p class="card-subtitle">Self-registration & statutory application tracking</p>
+              </div>
+              <div class="inst-icon">🏛️</div>
+            </div>
+
+            <div class="inst-option-box">
+              <div class="option-title">New Institutions (LOA)</div>
+              <p class="option-desc">
+                Submit Letter of Approval self-registration with verified land, building, and faculty credentials.
+              </p>
+            </div>
+
+            <div class="inst-option-box">
+              <div class="option-title">Existing Institutions (EOA)</div>
+              <p class="option-desc">
+                Manage annual Extension of Approval submissions, respond to technical deficiencies within 14 business days.
+              </p>
+            </div>
+
+            <button class="btn-brown" onclick="openRegistrationModal()">
+              <span>+</span> Start Institution Registration
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 2: INSTITUTION APPLICANT DASHBOARD (§1.2 #1) -->
+    <section id="view-inst-dashboard" class="view-section">
+      <div class="card-top flex-between">
+        <div>
+          <div class="statutory-pill">INSTITUTION APPLICANT DESK</div>
+          <h2 class="hero-title" style="font-size: 2rem;" id="instDashboardTitle">Delhi Institute of Engineering — Portal</h2>
+          <p class="hero-description">Statutory filing status, open deficiencies, and annual compliance mandates.</p>
+        </div>
+        <button class="btn-brown" onclick="openRegistrationModal()">+ New Approval Application</button>
+      </div>
+
+      <!-- Action Banner -->
+      <div class="action-banner-card" id="instActionBanner">
+        <div class="action-banner-icon">⚡</div>
+        <div class="action-banner-text">
+          <strong id="instNextActionTitle">Next Required Action:</strong>
+          <span id="instNextActionDesc">Create First Application for Academic Year 2026-2027</span>
+        </div>
+      </div>
+
+      <!-- 4 Summary Cards -->
+      <div class="stat-cards-row mt-16">
+        <div class="stat-card">
+          <div class="stat-card-title">My Applications</div>
+          <div class="stat-card-value" id="instMyAppsCount">0</div>
+          <div class="stat-card-sub" id="instMyAppsSub">Active Statutory Filings</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">Open Deficiencies</div>
+          <div class="stat-card-value text-danger" id="instOpenDefsCount">0</div>
+          <div class="stat-card-sub">Resolution target: 14 business days</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">Compliance Mandates</div>
+          <div class="stat-card-value text-success" id="instMandatesCount">8</div>
+          <div class="stat-card-sub">Statutory Mandates Active</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">Document Vault</div>
+          <div class="stat-card-value" id="instVaultCount">Verified</div>
+          <div class="stat-card-sub">Cryptographically Secured</div>
+        </div>
+      </div>
+
+      <!-- Applications Table / Empty State -->
+      <div class="card mt-24">
+        <h3 class="section-heading mb-12">Institutional Application Filings</h3>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Application ID</th>
+                <th>Application Type</th>
+                <th>Academic Year</th>
+                <th>Submitted Date</th>
+                <th>Current Stage</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="instAppsTableBody">
+              <!-- Rendered by JS: either empty state or institution apps -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 3: APPLICATIONS / APPROVAL PIPELINE TRACKER (§1.2 #2) -->
+    <section id="view-applications" class="view-section">
+      <div class="card-top flex-between">
+        <div>
+          <div class="statutory-pill">NATIONWIDE REGULATORY PIPELINE</div>
+          <h2 class="hero-title" style="font-size: 2rem;">Approval Pipeline Tracker</h2>
+          <p class="hero-description">Consolidated multi-stage tracking for LOA, EOA, and Renewal casework.</p>
+        </div>
+        <div class="header-action-btns">
+          <button class="btn-secondary" onclick="exportApplicationsCsv()">📥 Export CSV</button>
+          <button class="btn-brown" onclick="openRegistrationModal()">+ New Application</button>
+        </div>
+      </div>
+
+      <!-- 4 Overview Cards (§1.2 #2) -->
+      <div class="stat-cards-row mt-16">
+        <div class="stat-card">
+          <div class="stat-card-title">Total Applications</div>
+          <div class="stat-card-value" id="pipeTotalCount">8</div>
+          <div class="stat-card-sub">Casework in Scope</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">Pending Regulatory Review</div>
+          <div class="stat-card-value text-amber" id="pipePendingCount">5</div>
+          <div class="stat-card-sub">Intake, Scrutiny & Committee</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">Approved (LOA / EOA)</div>
+          <div class="stat-card-value text-success" id="pipeApprovedCount">2</div>
+          <div class="stat-card-sub" id="pipeApprovalRateText">Approval Rate: 25.0%</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">Rejected Applications</div>
+          <div class="stat-card-value text-danger" id="pipeRejectedCount">1</div>
+          <div class="stat-card-sub">Due to Unresolved Norms</div>
+        </div>
+      </div>
+
+      <!-- Pipeline Stages Progression Bar (§1.2 #2) -->
+      <div class="pipeline-progress-card mt-16">
+        <div class="pipeline-bar-header">
+          <strong>Regulatory Pipeline Progression:</strong>
+          <span id="pipelineProgressSummary">SUBMITTED (1) &bull; UNDER REVIEW (2) &bull; COMMITTEE (2) &bull; APPROVED (2) &bull; REJECTED (1)</span>
+        </div>
+        <div class="pipeline-multi-bar" id="pipelineMultiBar">
+          <div class="p-segment seg-submitted" style="width: 12.5%;" title="Submitted: 12.5%"></div>
+          <div class="p-segment seg-review" style="width: 25.0%;" title="Under Review: 25.0%"></div>
+          <div class="p-segment seg-committee" style="width: 25.0%;" title="Committee: 25.0%"></div>
+          <div class="p-segment seg-approved" style="width: 25.0%;" title="Approved: 25.0%"></div>
+          <div class="p-segment seg-rejected" style="width: 12.5%;" title="Rejected: 12.5%"></div>
+        </div>
+      </div>
+
+      <!-- Filters & Search Toolbar -->
+      <div class="pipeline-toolbar mt-16">
+        <div class="filter-chips" id="statusFilterChips">
+          <button class="chip active" onclick="filterPipelineStatus('ALL')">ALL</button>
+          <button class="chip" onclick="filterPipelineStatus('SUBMITTED')">SUBMITTED</button>
+          <button class="chip" onclick="filterPipelineStatus('UNDER_REVIEW')">UNDER REVIEW</button>
+          <button class="chip" onclick="filterPipelineStatus('COMMITTEE')">COMMITTEE</button>
+          <button class="chip" onclick="filterPipelineStatus('APPROVED')">APPROVED</button>
+          <button class="chip" onclick="filterPipelineStatus('REJECTED')">REJECTED</button>
+        </div>
+        <div class="search-box-wrapper">
+          <input type="text" id="pipelineSearchInput" placeholder="🔍 Search ID, College, Region, or Type..." oninput="handlePipelineSearch(this.value)">
+        </div>
+      </div>
+
+      <!-- Main Applications Table & Activity Feed Sidebar -->
+      <div class="pipeline-layout-grid mt-16">
+        <div class="pipeline-table-card">
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Application ID</th>
+                  <th>Institution</th>
+                  <th>Type</th>
+                  <th>Region</th>
+                  <th>Submitted</th>
+                  <th>Status</th>
+                  <th>Stage</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="allAppsTableBody">
+                <!-- Rendered by JS -->
+              </tbody>
+            </table>
+          </div>
+          <div class="table-pagination-footer" id="tablePaginationText">
+            Showing 8 of 8 • Page 1 of 1
+          </div>
+        </div>
+
+        <!-- Side Panel: Recent Activity Feed (§1.2 #2) -->
+        <div class="recent-activity-panel">
+          <div class="panel-header flex-between">
+            <h4 class="panel-title">Recent Activity Feed</h4>
+            <a href="javascript:void(0)" onclick="switchTab('audit')" class="panel-link">View Full Audit Log &rarr;</a>
+          </div>
+          <div class="activity-feed-list" id="activityFeedList">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 4: SCRUTINY & DEFICIENCY DESK (§1.2 #4) -->
+    <section id="view-scrutiny" class="view-section">
+      <div class="card-top flex-between">
+        <div>
+          <div class="statutory-pill">TECHNICAL SCRUTINY &bull; DEFICIENCY DESK</div>
+          <h2 class="hero-title" style="font-size: 2rem;">Scrutiny & Deficiency Desk</h2>
+          <p class="hero-description">Mandatory dual-scrutiny protocol: Automated compliance flags, cadre verification, and deficiency dispatches.</p>
+        </div>
+        <div class="dual-scrutiny-badge">
+          🛡️ Dual-Scrutiny Protocol Active (2 Reviewers Required)
+        </div>
+      </div>
+
+      <!-- 3 Summary Cards (§1.2 #4) -->
+      <div class="stat-cards-row mt-16">
+        <div class="stat-card">
+          <div class="stat-card-title">Queued for Scrutiny</div>
+          <div class="stat-card-value text-amber" id="scrutinyQueueCount">2</div>
+          <div class="stat-card-sub" id="scrutinyTurnaroundText">Average turnaround: 3.2 days</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">Active Deficiencies</div>
+          <div class="stat-card-value text-danger" id="scrutinyActiveDefs">3</div>
+          <div class="stat-card-sub">Under 14-day statutory clock</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">Rectified Deficiencies</div>
+          <div class="stat-card-value text-success" id="scrutinyRectifiedDefs">1</div>
+          <div class="stat-card-sub">Verified & cleared by officer</div>
+        </div>
+      </div>
+
+      <!-- Scrutiny Casework Queue Table -->
+      <div class="card mt-24">
+        <div class="card-top flex-between">
+          <h3 class="section-heading">Scrutiny Casework Queue</h3>
+          <span class="badge-info">Reviewer: Dr. A. K. Sharma</span>
+        </div>
+        <div class="table-responsive mt-12">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Application ID</th>
+                <th>Institution</th>
+                <th>Assigned Officer</th>
+                <th>Second Reviewer</th>
+                <th>Deficiencies</th>
+                <th>Status</th>
+                <th>Risk Level</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="scrutinyQueueTableBody">
+              <!-- Rendered by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- All Active Deficiency Dispatches Table -->
+      <div class="card mt-24">
+        <div class="card-top flex-between">
+          <div>
+            <h3 class="section-heading">All Active Deficiency Dispatches</h3>
+            <p class="section-desc">Track 14-business-day response deadlines and inspect institution resubmissions.</p>
+          </div>
+        </div>
+        <div class="table-responsive mt-12">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Deficiency ID</th>
+                <th>Application</th>
+                <th>Category</th>
+                <th>Discrepancy Details</th>
+                <th>Statutory Deadline</th>
+                <th>Required Action</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="activeDeficienciesTableBody">
+              <!-- Rendered by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 5: REGIONAL COMMAND DESK (§1.2 #5) -->
+    <section id="view-regional" class="view-section">
+      <div class="card-top flex-between">
+        <div>
+          <div class="jurisdiction-badge" id="regionalJurisdictionBadge">JURISDICTION: NORTHERN REGION (KANPUR)</div>
+          <h2 class="hero-title" style="font-size: 2rem;">Regional Officer Command Desk</h2>
+          <p class="hero-description">Regional intake queue, 48-hour allocation targets, and jurisdictional escalations.</p>
+        </div>
+        <button class="btn-primary" onclick="switchTab('applications')">Full Regional Intake Queue</button>
+      </div>
+
+      <!-- 4 Command Desk Cards (§1.2 #5) -->
+      <div class="stat-cards-row mt-16">
+        <div class="stat-card">
+          <div class="stat-card-title">Regional Queue</div>
+          <div class="stat-card-value" id="regQueueCount">3</div>
+          <div class="stat-card-sub">Active regional caseload</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">Unassigned Work</div>
+          <div class="stat-card-value text-amber" id="regUnassignedCount">1</div>
+          <div class="stat-card-sub">SLA: 48h allocation target</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">Active In-Progress</div>
+          <div class="stat-card-value" id="regActiveProgress">2</div>
+          <div class="stat-card-sub">Technical scrutiny / EVC</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">Deadlines & Escalations</div>
+          <div class="stat-card-value text-danger" id="regEscalationsCount">1</div>
+          <div class="stat-card-sub">Active SLA breach alerts</div>
+        </div>
+      </div>
+
+      <!-- Regional Caseload Registry Table -->
+      <div class="card mt-24">
+        <h3 class="section-heading mb-12">Regional Caseload Registry</h3>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Case ID</th>
+                <th>Institution</th>
+                <th>Approval Stream</th>
+                <th>Stage</th>
+                <th>Assigned Officer</th>
+                <th>Status</th>
+                <th>SLA Alert</th>
+                <th>Review Action</th>
+              </tr>
+            </thead>
+            <tbody id="regionalCaseloadTableBody">
+              <!-- Rendered by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 6: BUREAU OFFICER COMMAND DESK (§1.2 #5 & §10 #5) -->
+    <section id="view-bureau" class="view-section">
+      <div class="card-top flex-between">
+        <div>
+          <div class="jurisdiction-badge" style="background: #E8EEF5; color: #1E3A8A; border-color: #BFDBFE;">
+            JURISDICTION: CENTRAL REGION (BHOPAL) & NATIONAL POLICY DESK
+          </div>
+          <h2 class="hero-title" style="font-size: 2rem;">Bureau Officer Command Desk</h2>
+          <p class="hero-description">Central region oversight, cross-state bottleneck identification, and regulatory resolution paths.</p>
+        </div>
+        <button class="btn-primary" onclick="switchTab('bottlenecks')">📊 View Bottlenecks</button>
+      </div>
+
+      <!-- Summary Cards -->
+      <div class="stat-cards-row mt-16">
+        <div class="stat-card">
+          <div class="stat-card-title">Central Region Queue</div>
+          <div class="stat-card-value" id="bureauQueueCount">2</div>
+          <div class="stat-card-sub">Casework in Central Bureau</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">Active Bottlenecks</div>
+          <div class="stat-card-value text-danger" id="bureauBottlenecksCount">3</div>
+          <div class="stat-card-sub">Common stalling causes</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">Cross-Record Duplicates</div>
+          <div class="stat-card-value text-amber">1</div>
+          <div class="stat-card-sub">Concurrent PAN overlap flag</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">National EVC Pool</div>
+          <div class="stat-card-value text-success">42</div>
+          <div class="stat-card-sub">Empanelled Academicians</div>
+        </div>
+      </div>
+
+      <!-- Caseload Registry -->
+      <div class="card mt-24">
+        <h3 class="section-heading mb-12">Central Bureau Caseload</h3>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Case ID</th>
+                <th>Institution</th>
+                <th>Stream</th>
+                <th>Current Reviewer</th>
+                <th>Status</th>
+                <th>Deficiencies</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="bureauCaseloadTableBody">
+              <!-- Injected by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 7: BOTTLENECKS & IMPACT RADAR (§6.4 & §10) -->
+    <section id="view-bottlenecks" class="view-section">
+      <div class="card-top">
+        <div class="statutory-pill">SETU INTELLIGENCE &bull; SYSTEMIC BOTTLENECKS</div>
+        <h2 class="hero-title" style="font-size: 2rem;">Regulatory Bottleneck Analytics</h2>
+        <p class="hero-description">Aggregates common root causes stalling multiple files across bureaus to recommend systemic resolutions.</p>
+      </div>
+
+      <div class="bottlenecks-grid mt-16" id="bottlenecksContainer">
+        <!-- Injected by JS -->
+      </div>
+    </section>
+
+    <!-- VIEW 8: EVC TRACKING (§1.2 #6) -->
+    <section id="view-evc" class="view-section">
+      <div class="card-top flex-between">
+        <div>
+          <div class="statutory-pill">EXPERT VISIT COMMITTEE &bull; INSPECTIONS DESK</div>
+          <h2 class="hero-title" style="font-size: 2rem;">EVC Inspections & Committee Hearings</h2>
+          <p class="hero-description">Physical and virtual inspection schedules, expert panel empanelment, and observation reports.</p>
+        </div>
+        <button class="btn-brown" onclick="openScheduleEvcModal()">+ Schedule Inspection</button>
+      </div>
+
+      <!-- 3 Summary Cards (§1.2 #6) -->
+      <div class="stat-cards-row mt-16">
+        <div class="stat-card">
+          <div class="stat-card-title">Scheduled Inspections</div>
+          <div class="stat-card-value text-amber" id="evcScheduledCount">2</div>
+          <div class="stat-card-sub">Upcoming in next 14 days</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">Panel Pool Available</div>
+          <div class="stat-card-value text-success" id="evcPoolCount">42</div>
+          <div class="stat-card-sub">Empanelled Senior Academicians</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">Pending Committee Hearings</div>
+          <div class="stat-card-value" id="evcHearingsCount">3</div>
+          <div class="stat-card-sub">Standing Hearing Committee (SHC)</div>
+        </div>
+      </div>
+
+      <!-- Active EVC Inspections Table -->
+      <div class="card mt-24">
+        <div class="card-top flex-between">
+          <h3 class="section-heading">Active EVC Inspections & Assignments</h3>
+          <button class="btn-sm btn-ghost" onclick="showToast('EVC Calendar', 'Synchronized with AICTE Central Inspection Master Roster.', 'info')">📅 EVC Calendar</button>
+        </div>
+        <div class="table-responsive mt-12">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Application ID</th>
+                <th>Institution</th>
+                <th>Scheduled Date</th>
+                <th>Assigned Expert Panel</th>
+                <th>Inspection Mode</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="evcInspectionsTableBody">
+              <!-- Rendered by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 9: COMMITTEE HEARINGS DESK (§2 Step 3) -->
+    <section id="view-committee" class="view-section">
+      <div class="card-top flex-between">
+        <div>
+          <div class="statutory-pill">APEX COMMITTEE &bull; STANDING HEARING COMMITTEE</div>
+          <h2 class="hero-title" style="font-size: 2rem;">Standing Hearing Committee (SHC)</h2>
+          <p class="hero-description">Reviews EVC inspection findings, scrutinizes institutional compliance, and submits recommendations to Authority.</p>
+        </div>
+        <span class="badge-info">Committee Member: Prof. H. R. Venkatesh</span>
+      </div>
+
+      <div class="card mt-24">
+        <h3 class="section-heading mb-12">Cases Queued for Committee Hearing</h3>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Case ID</th>
+                <th>Institution</th>
+                <th>Type</th>
+                <th>Hearing Batch</th>
+                <th>EVC Observation Findings</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="committeeHearingsTableBody">
+              <!-- Injected by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 10: COMPETENT AUTHORITY STATUTORY SIGN-OFF (§2 Step 4) -->
+    <section id="view-authority" class="view-section">
+      <div class="card-top flex-between">
+        <div>
+          <div class="statutory-pill">STATUTORY GATE &bull; COMPETENT AUTHORITY</div>
+          <h2 class="hero-title" style="font-size: 2rem;">Statutory Sign-Off Gate</h2>
+          <p class="hero-description">Member Secretary / Chairman final decision order: Issue LOA, LOD, or LOR with verifiable digital seal.</p>
+        </div>
+        <span class="badge-success">Authority: Prof. Rajive Kumar, Member Secretary</span>
+      </div>
+
+      <div class="safeguard-alert mt-16">
+        <div class="alert-icon">⚖️</div>
+        <div class="alert-body">
+          <strong>Sole Prerogative Safeguard:</strong>
+          Algorithmic checks, risk bands, and EVC recommendations are assistive inputs. 
+          Final regulatory orders are issued solely under the digital authority of the designated Member Secretary.
+        </div>
+      </div>
+
+      <div class="card mt-24">
+        <h3 class="section-heading mb-12">Cases Awaiting Statutory Decision Order</h3>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Case ID</th>
+                <th>Institution</th>
+                <th>Type</th>
+                <th>Committee Recommendation</th>
+                <th>Risk Band</th>
+                <th>Deficiencies Outstanding</th>
+                <th>Statutory Sign-Off</th>
+              </tr>
+            </thead>
+            <tbody id="authoritySignOffTableBody">
+              <!-- Injected by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 11: COMPLIANCE SELF-CHECK & DRIFT MONITOR (§6.1 & §6.3) -->
+    <section id="view-compliance" class="view-section">
+      <div class="card-top flex-between">
+        <div>
+          <div class="statutory-pill">SETU INTELLIGENCE &bull; STATUTORY SELF-CHECK</div>
+          <h2 class="hero-title" style="font-size: 2rem;">Compliance Self-Check & Continuous Drift Monitor</h2>
+          <p class="hero-description">Test proposed institution parameters against AICTE Approval Process Handbook (APH 2024-27) norms.</p>
+        </div>
+      </div>
+
+      <!-- Self Check Wizard Form -->
+      <div class="card mt-16">
+        <h3 class="section-heading">Interactive Regulatory Self-Check (Preview Mode)</h3>
+        <p class="section-desc">Advisory simulation. Running checks here does not affect or submit an official application.</p>
+
+        <form id="selfCheckForm" onsubmit="handleSelfCheckSubmit(event)" class="mt-16">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Sanctioned Student Intake</label>
+              <input type="number" id="scStudents" value="600" required>
+            </div>
+            <div class="form-group">
+              <label>Total Faculty Strength</label>
+              <input type="number" id="scFaculty" value="28" required>
+              <small class="form-help">Norm: 1:20 ratio requires 30 faculty.</small>
+            </div>
+            <div class="form-group">
+              <label>Land Area (Acres)</label>
+              <input type="number" step="0.1" id="scLand" value="4.5" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Instructional Built-Up Area (Sq.m)</label>
+              <input type="number" id="scBuiltUp" value="8500" required>
+            </div>
+            <div class="form-group">
+              <label>Declared Laboratories</label>
+              <input type="number" id="scLabs" value="20" required>
+            </div>
+            <div class="form-group">
+              <label>Fire NOC Expiry Date</label>
+              <input type="date" id="scFireDate" value="2027-10-31" required>
+            </div>
+          </div>
+          <button type="submit" class="btn-brown mt-8">⚡ Run Pre-Filing Compliance Self-Check</button>
+        </form>
+
+        <div id="selfCheckResultsBox" class="mt-24" style="display: none;">
+          <!-- Injected by JS -->
+        </div>
+      </div>
+
+      <!-- Post-Approval Faculty Drift Timeline -->
+      <div class="card mt-24">
+        <div class="card-top flex-between">
+          <div>
+            <h3 class="section-heading">12-Month Post-Approval Faculty Drift Surveillance</h3>
+            <p class="section-desc">Monitors monthly roster strength to detect synthetic compliance windows around inspection dates.</p>
+          </div>
+          <div class="drift-stats">
+            <div class="stat-box"><div class="stat-num">32</div><div class="stat-sub">Strength at Approval</div></div>
+            <div class="stat-box"><div class="stat-num">24</div><div class="stat-sub">Current Strength</div></div>
+            <div class="stat-box stat-alert"><div class="stat-num">-6</div><div class="stat-sub">Compliance Shortfall</div></div>
+          </div>
+        </div>
+
+        <div class="chart-container-card mt-16">
+          <div class="chart-header">
+            <div class="chart-title">Longitudinal Faculty Trajectory (Nov 2025 – Oct 2026)</div>
+            <div class="chart-legend">
+              <span class="legend-item"><span class="legend-dot dot-required"></span> Required Norm (30)</span>
+              <span class="legend-item"><span class="legend-dot dot-actual"></span> Active Monthly Strength</span>
+              <span class="legend-item"><span class="legend-dot dot-event"></span> Inspection / Approval Milestones</span>
+            </div>
+          </div>
+          <div class="chart-svg-wrapper" id="driftChartWrapper">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+        <div class="drift-alerts-container mt-16" id="driftAlertsContainer">
+          <!-- Injected by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 12: STATUTORY DOCUMENT VAULT (§1.2 #6) -->
+    <section id="view-documents" class="view-section">
+      <div class="card-top">
+        <div class="statutory-pill">EVIDENCE ARCHITECTURE &bull; OCR VERIFICATION</div>
+        <h2 class="hero-title" style="font-size: 2rem;">Statutory Document Vault</h2>
+        <p class="hero-description">Certified State Fire NOCs, Consolidated Land Titles, Building Occupancy Certificates, and Affidavits.</p>
+      </div>
+      <div class="documents-grid mt-16" id="documentsGrid">
+        <!-- Injected by JS -->
+      </div>
+    </section>
+
+    <!-- VIEW 13: CRYPTOGRAPHIC AUDIT LEDGER (§6.5) -->
+    <section id="view-audit" class="view-section">
+      <div class="card-top flex-between">
+        <div>
+          <div class="statutory-pill">CRYPTO-VERIFIABLE REGULATORY GOVERNANCE</div>
+          <h2 class="hero-title" style="font-size: 2rem;">Cryptographic Audit Trail (SHA-256 Hash Chain)</h2>
+          <p class="hero-description">Every scrutiny review, deficiency dispatch, document override, and sign-off is hashed and chained.</p>
+        </div>
+        <button class="btn-primary" onclick="verifyAuditLedger()">🔐 Verify Hash Chain Integrity</button>
+      </div>
+
+      <div class="chain-status-card mt-16" id="chainStatusCard">
+        <span class="chain-status-icon">🛡️</span>
+        <div>
+          <strong>Ledger Status:</strong>
+          <span id="chainStatusText">Cryptographically verified. All blocks match immutable hash signatures.</span>
+        </div>
+      </div>
+
+      <div class="table-responsive mt-16">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Block #</th>
+              <th>Timestamp</th>
+              <th>Actor & Role</th>
+              <th>Action Executed</th>
+              <th>Target Entity</th>
+              <th>Block Hash (SHA-256)</th>
+              <th>Previous Hash</th>
+            </tr>
+          </thead>
+          <tbody id="auditTableBody">
+            <!-- Injected by JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== MODALS ==================== -->
+
+  <!-- MODAL: APPLICATION DETAIL & WORKFLOW MODAL (§1.2 #3 & §6.4) -->
+  <div class="modal-overlay" id="appDetailModal">
+    <div class="modal-content modal-xl">
+      <div class="modal-header">
+        <div>
+          <div class="modal-badge-row">
+            <span class="case-id" id="modalCaseId">AICTE/2026/APP-1042</span>
+            <span class="state-pill" id="modalStatePill">UNDER_REVIEW</span>
+            <span class="risk-pill" id="modalRiskPill">RISK: RED</span>
+            <span class="type-pill" id="modalTypePill">New Approval</span>
+          </div>
+          <h3 class="modal-title-college" id="modalCollegeName">Sunrise Institute of Technology</h3>
+          <div class="modal-meta-row" id="modalMetaRow">
+            <span><strong>Region:</strong> Western (Mumbai)</span>
+            <span><strong>Academic Year:</strong> 2026-2027</span>
+            <span><strong>Submitted:</strong> 2026-06-15</span>
+          </div>
+        </div>
+        <button class="modal-close" onclick="closeModal('appDetailModal')">&times;</button>
+      </div>
+
+      <!-- 4-Stage Progress Tracker (§2) -->
+      <div class="workflow-progression-bar">
+        <div class="step-item active" id="step-intake">
+          <div class="step-number">1</div>
+          <div class="step-label">Intake & Filing</div>
+        </div>
+        <div class="step-connector active" id="conn-1"></div>
+        <div class="step-item active" id="step-scrutiny">
+          <div class="step-number">2</div>
+          <div class="step-label">Technical Scrutiny</div>
+        </div>
+        <div class="step-connector" id="conn-2"></div>
+        <div class="step-item" id="step-committee">
+          <div class="step-number">3</div>
+          <div class="step-label">EVC / Committee</div>
+        </div>
+        <div class="step-connector" id="conn-3"></div>
+        <div class="step-item" id="step-decision">
+          <div class="step-number">4</div>
+          <div class="step-label">Final Decision</div>
+        </div>
+      </div>
+
+      <!-- Modal Tabs Bar -->
+      <div class="modal-tabs-bar">
+        <button class="m-tab active" onclick="switchModalTab('overview')">Overview & Scrutiny</button>
+        <button class="m-tab" onclick="switchModalTab('deficiencies')" id="modalTabDeficiencies">Deficiencies (1)</button>
+        <button class="m-tab" onclick="switchModalTab('evc')">EVC Committee</button>
+        <button class="m-tab" onclick="switchModalTab('radar')">Impact Radar (SETU)</button>
+        <button class="m-tab" onclick="switchModalTab('audit')">Audit Timeline</button>
+        <button class="m-tab" onclick="switchModalTab('decision')">Statutory Final Decision</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- TAB 1: OVERVIEW & SCRUTINY -->
+        <div id="m-tab-overview" class="modal-tab-content active">
+          <!-- Next Action Callout -->
+          <div class="stage-action-box" id="modalNextActionBox">
+            <div class="stage-action-left">
+              <strong>Next Regulatory Action:</strong>
+              <span id="modalNextActionText">Resolve cadre deficiency DEF-1042-01 before ordering EVC inspection.</span>
+            </div>
+            <div class="stage-action-btns" id="modalStageActionBtns">
+              <!-- Buttons injected by JS based on stage and role -->
+            </div>
+          </div>
+
+          <!-- Cards Row -->
+          <div class="case-meta-cards mt-16">
+            <div class="meta-card">
+              <span class="meta-card-title">Reviewer Assignment:</span>
+              <strong id="modalReviewerName">Rajeshwari Nair</strong>
+              <small id="modalSecondReviewer">Second: Dr. A. K. Sharma (Dual-Scrutiny Active)</small>
+            </div>
+            <div class="meta-card">
+              <span class="meta-card-title">Deficiencies Outstanding:</span>
+              <strong id="modalDefsCount" class="text-danger">1 Active Deficit</strong>
+              <small>Resolution timeline: 14 business days from notice</small>
+            </div>
+            <div class="meta-card">
+              <span class="meta-card-title">SLA Status:</span>
+              <strong id="modalSlaStatus">On Track</strong>
+              <small id="modalSlaDays">5 working days remaining</small>
+            </div>
+          </div>
+
+          <!-- 3-Layer Scrutiny Findings Grid -->
+          <div class="verification-grid mt-16">
+            <div class="grid-card">
+              <div class="card-top">
+                <div class="layer-tag">LAYER 1 &bull; DETERMINISTIC RULE ENGINE</div>
+                <h4 class="section-heading">Rulebook Evaluation</h4>
+              </div>
+              <div class="rules-container mt-8" id="modalRuleResults"></div>
+            </div>
+
+            <div class="grid-card">
+              <div class="card-top">
+                <div class="layer-tag">LAYER 2 & 3 &bull; DOCUMENT AI & CROSS-RECORD</div>
+                <h4 class="section-heading">Document & Integrity Checks</h4>
+              </div>
+              <div id="modalDocCrossResults" class="mt-8"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 2: DEFICIENCIES MATRIX -->
+        <div id="m-tab-deficiencies" class="modal-tab-content">
+          <div class="card-top flex-between">
+            <div>
+              <h4 class="section-heading">Statutory Deficiency Matrix</h4>
+              <p class="section-desc">All deficiencies must be rectified by institution within 14 business days of notice.</p>
+            </div>
+            <button class="btn-sm btn-primary" onclick="openRaiseDeficiencyModal()">+ Raise New Deficiency</button>
+          </div>
+          <div class="table-responsive mt-12">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Deficiency ID</th>
+                  <th>Category</th>
+                  <th>Observed Discrepancy</th>
+                  <th>Statutory Clause</th>
+                  <th>Mandated Action</th>
+                  <th>Deadline (14 Days)</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="modalDeficienciesTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TAB 3: EVC COMMITTEE -->
+        <div id="m-tab-evc" class="modal-tab-content">
+          <div class="card-top flex-between">
+            <h4 class="section-heading">Expert Visit Committee (EVC) & Hearings</h4>
+            <button class="btn-sm btn-brown" onclick="openScheduleEvcModal()">Schedule Inspection</button>
+          </div>
+          <div id="modalEvcContent" class="mt-12"></div>
+        </div>
+
+        <!-- TAB 4: IMPACT RADAR (SETU) -->
+        <div id="m-tab-radar" class="modal-tab-content">
+          <div class="card-top flex-between">
+            <div>
+              <div class="statutory-pill">SETU INTELLIGENCE &bull; DEPENDENCY ENGINE</div>
+              <h4 class="section-heading">Regulatory Impact Radar (Critical Path Analysis)</h4>
+              <p class="section-desc">
+                Ranks issues based on statutory dependency DAG: severity &times; stage importance &times; pathways unblocked &times; SLA urgency.
+              </p>
+            </div>
+            <div class="radar-score-box">
+              <span class="score-label">Critical Path Score:</span>
+              <strong id="radarCriticalScore" class="score-val">68.4</strong>
+            </div>
+          </div>
+
+          <div class="table-responsive mt-16">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Order</th>
+                  <th>Recommended High-Leverage Action</th>
+                  <th>Category</th>
+                  <th>Severity</th>
+                  <th>Impact Score</th>
+                  <th>Affected Downstream Stages</th>
+                  <th>Rule Reference</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="modalRadarTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TAB 5: AUDIT TIMELINE -->
+        <div id="m-tab-audit" class="modal-tab-content">
+          <h4 class="section-heading">Case Cryptographic Audit Trail</h4>
+          <p class="section-desc">Immutable history of actions executed on this application record.</p>
+          <div class="table-responsive mt-12">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>Actor</th>
+                  <th>Role</th>
+                  <th>Action</th>
+                  <th>Details</th>
+                  <th>SHA-256 Hash</th>
+                </tr>
+              </thead>
+              <tbody id="modalCaseAuditTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TAB 6: STATUTORY DECISION -->
+        <div id="m-tab-decision" class="modal-tab-content">
+          <div id="modalDecisionContent"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: RAISE DEFICIENCY -->
+  <div class="modal-overlay" id="raiseDeficiencyModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>⚠️ Raise Statutory Deficiency Notice (14-Day Clock)</h3>
+        <button class="modal-close" onclick="closeModal('raiseDeficiencyModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form onsubmit="handleRaiseDeficiencySubmit(event)">
+          <div class="form-group">
+            <label>Deficiency Category</label>
+            <select id="raiseCategory">
+              <option value="Faculty">Faculty & Cadre Shortfall</option>
+              <option value="Infrastructure">Infrastructure & Land Norms</option>
+              <option value="Financial & Legal">Financial & Legal (FDR/Lien)</option>
+              <option value="Safety & Statutory">Safety Certificates & Fire NOC</option>
+              <option value="Laboratories">Laboratory & Computing Equipment</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Observed Deficit Description</label>
+            <textarea id="raiseDescription" required placeholder="Specify clause findings and observed shortfall..."></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>AICTE Handbook Clause</label>
+              <input type="text" id="raiseClause" value="AICTE APH 2024-27 Appendix 7.2" required>
+            </div>
+            <div class="form-group">
+              <label>Resolution Timeline</label>
+              <input type="text" value="14 Business Days from Notice" readonly>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Prescribed Remediation Action</label>
+            <input type="text" id="raiseAction" required placeholder="Evidence required from institution to clear deficit...">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn-ghost" onclick="closeModal('raiseDeficiencyModal')">Cancel</button>
+            <button type="submit" class="btn-brown">Dispatch Statutory Notice</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: SCHEDULE EVC INSPECTION -->
+  <div class="modal-overlay" id="scheduleEvcModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>📅 Schedule Expert Visit Committee (EVC) Inspection</h3>
+        <button class="modal-close" onclick="closeModal('scheduleEvcModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form onsubmit="handleScheduleEvcSubmit(event)">
+          <div class="form-group">
+            <label>Scheduled Inspection Date</label>
+            <input type="date" id="evcDate" value="2026-07-05" required>
+          </div>
+          <div class="form-group">
+            <label>Inspection Mode</label>
+            <select id="evcMode">
+              <option value="PHYSICAL">Physical On-Site Verification</option>
+              <option value="VIRTUAL">Virtual Inspection with Geo-Tagged Evidence</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Select Empanelled Senior Academicians (Pool of 42)</label>
+            <div class="checkbox-group">
+              <label><input type="checkbox" id="panel1" checked> Prof. H. R. Venkatesh (IIT Delhi)</label>
+              <label><input type="checkbox" id="panel2" checked> Dr. Sunita Sen (NIT Karnataka)</label>
+              <label><input type="checkbox" id="panel3"> Prof. Ramesh Rao (EVC Coordinator)</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Inspection Mandate Notes</label>
+            <textarea id="evcNotes" placeholder="Special areas to verify (e.g. CAD lab terminals, barrier-free accessibility)..."></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn-ghost" onclick="closeModal('scheduleEvcModal')">Cancel</button>
+            <button type="submit" class="btn-brown">Confirm & Issue Inspection Order</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: SUBMIT EVC OBSERVATION REPORT -->
+  <div class="modal-overlay" id="submitEvcReportModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>📋 Submit EVC Observation Report</h3>
+        <button class="modal-close" onclick="closeModal('submitEvcReportModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form onsubmit="handleSubmitEvcReportSubmit(event)">
+          <div class="form-group">
+            <label>Overall Inspection Finding</label>
+            <select id="evcReportOutcome">
+              <option value="RECOMMENDED_FOR_APPROVAL">Recommended for Approval (Compliant with Norms)</option>
+              <option value="DEFICIENT">Deficiencies Identified (Conditional Hearing Required)</option>
+              <option value="REJECTED">Severe Discrepancies Noted (Recommend Refusal)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Geo-Tagged Physical Findings & Committee Observations</label>
+            <textarea id="evcReportNotes" required placeholder="Record detailed observations regarding labs, faculty physical verification, and building area..."></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn-ghost" onclick="closeModal('submitEvcReportModal')">Cancel</button>
+            <button type="submit" class="btn-brown">Affix Expert Signature & Submit to SHC</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: INSTITUTION REGISTRATION (LOA / EOA) -->
+  <div class="modal-overlay" id="registrationModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>🏛️ New Approval Application Registration (LOA / EOA)</h3>
+        <button class="modal-close" onclick="closeModal('registrationModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form onsubmit="handleRegistrationSubmit(event)">
+          <div class="form-group">
+            <label>Institution Name</label>
+            <input type="text" id="regName" required placeholder="e.g. Delhi Institute of Engineering" value="Delhi Institute of Engineering">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Application Type</label>
+              <select id="regType">
+                <option value="New Approval">New Institution (Letter of Approval - LOA)</option>
+                <option value="Renewal">Renewal of Approval (ROA)</option>
+                <option value="Extension">Extension of Approval (EOA)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>AICTE Regional Bureau</label>
+              <select id="regRegion">
+                <option value="Northern (Kanpur)">Northern (Kanpur / Delhi)</option>
+                <option value="Western (Mumbai)">Western (Mumbai)</option>
+                <option value="Southern (Chennai)">Southern (Chennai)</option>
+                <option value="Central (Bhopal)">Central (Bhopal)</option>
+                <option value="North-West (Chandigarh)">North-West (Chandigarh)</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Sanctioned Student Intake</label>
+              <input type="number" id="regStudents" value="600" required>
+            </div>
+            <div class="form-group">
+              <label>Faculty Roster Size</label>
+              <input type="number" id="regFaculty" value="28" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Land Area (Acres)</label>
+              <input type="number" step="0.1" id="regLand" value="4.5" required>
+            </div>
+            <div class="form-group">
+              <label>Instructional Area (Sq.m)</label>
+              <input type="number" id="regBuiltUp" value="8500" required>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn-ghost" onclick="closeModal('registrationModal')">Cancel</button>
+            <button type="submit" class="btn-brown">Freeze Snapshot & Submit Application</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: STATUTORY SIGN-OFF GATE (§2 Step 4) -->
+  <div class="modal-overlay" id="decisionModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>⚖️ Statutory Sign-Off Decision Gate</h3>
+        <button class="modal-close" onclick="closeModal('decisionModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form onsubmit="handleDecisionSubmit(event)">
+          <div class="form-group">
+            <label>Statutory Regulatory Order</label>
+            <select id="decisionTypeSelect">
+              <option value="LOA_ISSUED">Letter of Approval (LOA) — Full Grant</option>
+              <option value="LOD_ISSUED">Letter of Deficiency (LOD) — Conditional 30-Day Rectification</option>
+              <option value="LOR_ISSUED">Letter of Rejection (LOR) — Refusal of Statutory Approval</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Authorized Signatory</label>
+            <input type="text" id="decisionSignatory" value="Prof. Rajive Kumar, Member Secretary" readonly>
+          </div>
+          <div class="form-group">
+            <label>Official Statutory Minute & Findings</label>
+            <textarea id="decisionNotes" required placeholder="Record final committee resolution and clause findings..."></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn-ghost" onclick="closeModal('decisionModal')">Cancel</button>
+            <button type="submit" class="btn-brown">Affix Digital Seal & Record Order</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <footer class="main-footer">
+    <span>AICTE FlowGuard &bull; Regulatory Approval & Statutory Compliance System (Standalone Presentation Mode)</span>
+    <span>Prototype, not an official AICTE system &bull; Humans make every decision</span>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>

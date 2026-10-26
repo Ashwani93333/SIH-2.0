@@ -1,0 +1,24 @@
+{
+  "platform": "BUREAU",
+  "name": "Approvals Bureau & Competent Authority Platform",
+  "bureau_head": "Shri Vikram Malhotra",
+  "member_secretary": "Dr. Rajendra Joshi",
+  "bottlenecks": [
+    {
+      "stage": "TECHNICAL_SCRUTINY",
+      "avg_days": 8.4,
+      "sla_target": 10,
+      "compliance_pct": 84.6,
+      "flag": "High concentration of FSR discrepancies in Computer Science"
+    }
+  ],
+  "sign_off_queue": [
+    {
+      "app_id": "AICTE/2026/APP-1018",
+      "college": "Metropolitan Skill Institute",
+      "order_type": "GRANT_OF_APPROVAL",
+      "years": "2026-2029",
+      "status": "DIGITALLY_SIGNED"
+    }
+  ]
+}

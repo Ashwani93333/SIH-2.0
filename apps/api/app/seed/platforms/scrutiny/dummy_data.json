@@ -1,0 +1,16 @@
+{
+  "platform": "SCRUTINY",
+  "name": "Technical Scrutiny Officer Desk",
+  "officer": "Dr. A. K. Sharma",
+  "region": "Northern Regional Office",
+  "dockets": [
+    {
+      "app_id": "AICTE/2026/APP-1042",
+      "flags": [
+        { "rule": "AICTE-NORM-FSR-1:20", "status": "DEFICIENT", "action": "14_DAY_CURE_NOTICE" },
+        { "rule": "AICTE-NORM-LAND-CONTIGUOUS", "status": "PASS", "val": "7.80 Acres" },
+        { "rule": "AICTE-NORM-FIRE-SAFETY", "status": "PASS", "val": "Valid 2027" }
+      ]
+    }
+  ]
+}

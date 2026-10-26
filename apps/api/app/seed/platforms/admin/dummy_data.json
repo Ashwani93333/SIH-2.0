@@ -1,0 +1,17 @@
+{
+  "platform": "ADMIN",
+  "name": "System Administrator & Cryptographic Audit Ledger",
+  "active_scenarios_count": 8,
+  "canonical_scenarios": [
+    "APP-1042_Sunrise",
+    "APP-1038_Greenfield",
+    "APP-1035_StXaviers",
+    "APP-1029_NationalSkill",
+    "APP-1022_Rural",
+    "APP-1018_Metropolitan",
+    "APP-1010_Coastal",
+    "APP-1005_Hilltop"
+  ],
+  "audit_chain_algorithm": "SHA-256 with tamper-evident backward linking",
+  "simulation_clock_supported": true
+}

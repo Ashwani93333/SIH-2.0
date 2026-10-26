@@ -1,0 +1,15 @@
+{
+  "platform": "REGIONAL",
+  "name": "Regional Officer Command Platform",
+  "officer": "Dr. R. K. Singhania",
+  "region": "Northern",
+  "states": ["Delhi", "Haryana", "Punjab", "Himachal Pradesh", "Jammu & Kashmir", "Uttar Pradesh"],
+  "unassigned_queue": [
+    {
+      "app_id": "AICTE/2026/APP-1022",
+      "college": "Rural Engineering College",
+      "unassigned_hours": 46,
+      "alert": "Approaching 48h SLA breach"
+    }
+  ]
+}

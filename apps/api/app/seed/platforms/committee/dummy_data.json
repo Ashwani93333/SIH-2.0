@@ -1,0 +1,20 @@
+{
+  "platform": "COMMITTEE",
+  "name": "Standing Hearing Committee (SHC) Platform",
+  "chair": "Prof. K. K. Aggarwal",
+  "quorum_required": 3,
+  "docket": [
+    {
+      "app_id": "AICTE/2026/APP-1035",
+      "college": "St. Xavier's Engineering College",
+      "discrepancy": "0.40 Acre road setback easement",
+      "resolution": "Conditional 30-day approval on submission of municipal TDR demarcation"
+    },
+    {
+      "app_id": "AICTE/2026/APP-1022",
+      "college": "Rural Engineering College",
+      "discrepancy": "6.80 vs 10.00 Acres contiguous rural land requirement",
+      "resolution": "Rejection recommended due to lack of discretionary relaxation"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "platform": "EVC",
+  "name": "Expert Visit Committee (EVC) Platform",
+  "coordinator": "Prof. Ramesh Rao",
+  "empanelled_pool_count": 52,
+  "scheduled_inspections": [
+    {
+      "app_id": "AICTE/2026/APP-1042",
+      "college": "Sunrise Institute of Technology",
+      "date": "2026-03-18",
+      "inspectors": ["Dr. K. Radhakrishnan", "Prof. S. N. Varma"],
+      "focus": "Verify biometric match of 6 newly appointed faculty and computing laboratories"
+    }
+  ]
+}
