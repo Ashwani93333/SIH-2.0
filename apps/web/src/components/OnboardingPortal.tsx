@@ -1,11 +1,21 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import { FlowGuardRole } from "../data";
 import { DEMO_ACCOUNTS, DemoAccount } from "../data/authCredentials";
 
 interface OnboardingPortalProps {
   onLogin: (role: FlowGuardRole, account: DemoAccount) => void;
+}
+
+const CAPTCHA_CHARS = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ";
+
+function createRandomCaptcha(): string {
+  let code = "";
+  for (let i = 0; i < 6; i++) {
+    code += CAPTCHA_CHARS.charAt(Math.floor(Math.random() * CAPTCHA_CHARS.length));
+  }
+  return code;
 }
 
 export const OnboardingPortal: React.FC<OnboardingPortalProps> = ({ onLogin }) => {
@@ -25,26 +35,17 @@ export const OnboardingPortal: React.FC<OnboardingPortalProps> = ({ onLogin }) =
   const activeAccount = DEMO_ACCOUNTS.find((a) => a.role === selectedRole) || DEMO_ACCOUNTS[0];
 
   // Generate random 6-character alphanumeric CAPTCHA
-  const generateCaptcha = () => {
-    const chars = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ";
-    let code = "";
-    for (let i = 0; i < 6; i++) {
-      code += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    setCaptchaCode(code);
+  const generateCaptcha = useCallback(() => {
+    setCaptchaCode(createRandomCaptcha());
     setCaptchaInput("");
     setCaptchaError(null);
-  };
-
-  useEffect(() => {
-    generateCaptcha();
-  }, [selectedRole]);
+  }, []);
 
   const handleSelectRole = (account: DemoAccount) => {
     setSelectedRole(account.role);
     setEmailInput(account.email);
     setPasswordInput(account.tempPassword);
-    setCaptchaError(null);
+    generateCaptcha();
     setShowLoginDropdown(false);
   };
 
@@ -681,7 +682,7 @@ export const OnboardingPortal: React.FC<OnboardingPortalProps> = ({ onLogin }) =
                 </button>
 
                 <div className="text-center text-xs text-slate-500 pt-2">
-                  <span>Haven't confirmed your portal credentials? </span>
+                  <span>Haven&apos;t confirmed your portal credentials? </span>
                   <button
                     type="button"
                     onClick={() => alert("Verification link dispatched to institutional head.")}

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState, useSyncExternalStore } from "react";
 
 export type Theme = "light" | "dark" | "system";
 
@@ -15,22 +15,28 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 const THEME_STORAGE_KEY = "flowguard-theme";
 
-export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [theme, setThemeState] = useState<Theme>("system");
-  const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">("light");
-  const [mounted, setMounted] = useState(false);
+const emptySubscribe = () => () => {};
 
-  useEffect(() => {
-    try {
-      const storedTheme = localStorage.getItem(THEME_STORAGE_KEY) as Theme | null;
-      if (storedTheme && ["light", "dark", "system"].includes(storedTheme)) {
-        setThemeState(storedTheme);
+export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [theme, setThemeState] = useState<Theme>(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const storedTheme = localStorage.getItem(THEME_STORAGE_KEY) as Theme | null;
+        if (storedTheme && ["light", "dark", "system"].includes(storedTheme)) {
+          return storedTheme;
+        }
+      } catch {
+        // Ignore localStorage read errors in restricted contexts
       }
-    } catch {
-      // Ignore localStorage read errors in restricted contexts
     }
-    setMounted(true);
-  }, []);
+    return "system";
+  });
+  const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">("light");
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
 
   useEffect(() => {
     const root = document.documentElement;
