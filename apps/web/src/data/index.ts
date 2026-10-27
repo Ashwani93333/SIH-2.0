@@ -45,7 +45,7 @@ export const ROLE_DEFINITIONS: Record<FlowGuardRole, RoleDescriptor> = {
     label: "Technical Scrutiny Officer",
     userName: "Dr. A. K. Sharma",
     organization: "Northern Regional Directorate",
-    badgeColor: "bg-blue-100 text-blue-800 border-blue-300",
+    badgeColor: "bg-emerald-100 text-emerald-800 border-emerald-300",
     accessibleViews: ["scrutiny_desk", "rule_verification", "deficiency_issuer", "evc_recommender"],
   },
   REGIONAL_OFFICER: {
@@ -77,7 +77,7 @@ export const ROLE_DEFINITIONS: Record<FlowGuardRole, RoleDescriptor> = {
     label: "Head of Approvals Bureau",
     userName: "Shri Vikram Malhotra",
     organization: "Approvals Bureau, AICTE HQ",
-    badgeColor: "bg-indigo-100 text-indigo-800 border-indigo-300",
+    badgeColor: "bg-emerald-100 text-emerald-800 border-emerald-300",
     accessibleViews: ["bureau_command", "national_bottlenecks", "impact_radar", "pipeline_analytics"],
   },
   COMPETENT_AUTHORITY: {

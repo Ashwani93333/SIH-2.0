@@ -12,6 +12,14 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  async rewrites() {
+    return [
+      {
+        source: "/aicte-logo.png",
+        destination: "http://127.0.0.1:8001/aicte-logo.png",
+      },
+    ];
+  },
 };
 
 export default nextConfig;

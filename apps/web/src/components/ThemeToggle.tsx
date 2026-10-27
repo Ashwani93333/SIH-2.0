@@ -33,7 +33,7 @@ export const ThemeToggle: React.FC<{ className?: string }> = ({ className = "" }
       <button
         type="button"
         onClick={toggleTheme}
-        className="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition-all duration-200 shadow-2xs hover:scale-105 active:scale-95 cursor-pointer focus:outline-hidden focus:ring-2 focus:ring-blue-500/40"
+        className="flex items-center justify-center w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition-all duration-200 shadow-2xs hover:scale-105 active:scale-95 cursor-pointer focus:outline-hidden focus:ring-2 focus:ring-emerald-500/40"
         title={`Current mode: ${theme} (${resolvedTheme}). Click to switch to ${resolvedTheme === "dark" ? "Light" : "Dark"} mode.`}
         aria-label="Toggle light/dark theme"
       >
@@ -106,7 +106,7 @@ export const ThemeToggle: React.FC<{ className?: string }> = ({ className = "" }
                   }}
                   className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer text-left ${
                     isSelected
-                      ? "bg-blue-50 text-blue-700 dark:bg-blue-950/70 dark:text-blue-300 font-bold"
+                      ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-950/70 dark:text-emerald-300 font-bold"
                       : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
                   }`}
                 >
@@ -120,7 +120,7 @@ export const ThemeToggle: React.FC<{ className?: string }> = ({ className = "" }
                     </div>
                   </div>
                   {isSelected && (
-                    <span className="text-blue-600 dark:text-blue-400 text-xs">✓</span>
+                    <span className="text-emerald-600 dark:text-emerald-400 text-xs">✓</span>
                   )}
                 </button>
               );

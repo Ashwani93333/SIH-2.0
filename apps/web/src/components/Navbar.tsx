@@ -42,27 +42,19 @@ export const Navbar: React.FC<NavbarProps> = ({
             className="flex items-center gap-3 shrink-0 cursor-pointer group"
             title="Click to return to Multi-Role Onboarding Gateway"
           >
-            <div className="w-9 h-9 rounded-xl bg-linear-to-tr from-blue-700 via-indigo-600 to-sky-500 flex items-center justify-center text-white font-bold text-lg shadow-sm shadow-blue-500/20 group-hover:scale-105 transition-transform">
-              <svg
-                className="w-5 h-5 text-white"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth="2.2"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                />
-              </svg>
+            <div className="w-9 h-9 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 flex items-center justify-center overflow-hidden p-1 shadow-sm shadow-emerald-500/10 group-hover:scale-105 transition-transform">
+              <img
+                src="/aicte-logo.png"
+                alt="AICTE Official Logo"
+                className="w-full h-full object-contain"
+              />
             </div>
             <div>
               <div className="flex items-center gap-2 leading-none">
                 <span className="font-extrabold text-base tracking-tight text-slate-900 dark:text-slate-100">
-                  AICTE <span className="text-blue-600 dark:text-blue-400">FlowGuard</span>
+                  AICTE <span className="text-emerald-600 dark:text-emerald-400">FlowGuard</span>
                 </span>
-                <span className="bg-blue-50 text-blue-700 border border-blue-200 text-[10px] font-bold px-1.5 py-0.5 rounded dark:bg-blue-950/80 dark:border-blue-800 dark:text-blue-300">
+                <span className="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-bold px-1.5 py-0.5 rounded dark:bg-emerald-950/80 dark:border-emerald-800 dark:text-emerald-300">
                   SETU v3.0
                 </span>
               </div>
@@ -81,7 +73,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <span className="font-semibold text-slate-900 dark:text-slate-100 tabular-nums text-xs">
                   {formattedDate}
                 </span>
-                <span className="text-[10px] bg-blue-100 text-blue-700 font-semibold px-1.5 py-0.2 rounded dark:bg-blue-900/60 dark:text-blue-300 tabular-nums">
+                <span className="text-[10px] bg-emerald-100 text-emerald-700 font-semibold px-1.5 py-0.2 rounded dark:bg-emerald-950/60 dark:text-emerald-300 tabular-nums">
                   Day +{simulatedDays}
                 </span>
               </div>
@@ -126,7 +118,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             {/* User Profile Pill */}
             <div className="hidden sm:flex items-center gap-2.5 border-l border-slate-200 dark:border-slate-800 pl-3">
-              <div className="w-8 h-8 rounded-full bg-linear-to-br from-blue-600 to-indigo-700 text-white flex items-center justify-center font-bold text-xs shadow-2xs ring-1 ring-blue-500/20 shrink-0">
+              <div className="w-8 h-8 rounded-full bg-linear-to-br from-emerald-600 to-teal-700 text-white flex items-center justify-center font-bold text-xs shadow-2xs ring-1 ring-emerald-500/20 shrink-0">
                 {activeRoleDef.userName.charAt(0)}
               </div>
               <div className="text-left">

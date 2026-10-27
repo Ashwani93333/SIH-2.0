@@ -59,7 +59,7 @@ export const BureauDashboard: React.FC<BureauDashboardProps> = ({
       <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 pt-7 sm:pt-9 shadow-xs flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div className="space-y-1">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="bg-indigo-50 text-indigo-700 border border-indigo-200 text-xs font-bold px-3 py-0.5 rounded-full dark:bg-indigo-950/80 dark:border-indigo-800 dark:text-indigo-300">
+            <span className="bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-bold px-3 py-0.5 rounded-full dark:bg-emerald-950/80 dark:border-emerald-800 dark:text-emerald-300">
               {isCompetentAuthority ? "Council Competent Authority" : "Approvals Bureau Headquarters"}
             </span>
             <span className="text-xs text-slate-500 font-semibold dark:text-slate-400">
@@ -100,7 +100,7 @@ export const BureauDashboard: React.FC<BureauDashboardProps> = ({
           onClick={() => setActiveTab("bottlenecks")}
           className={`pb-3 border-b-2 whitespace-nowrap cursor-pointer transition-colors ${
             activeTab === "bottlenecks"
-              ? "border-blue-600 text-blue-600 dark:text-blue-400"
+              ? "border-emerald-600 text-emerald-600 dark:text-emerald-400"
               : "border-transparent text-slate-500 hover:text-slate-800 dark:text-slate-400"
           }`}
         >
@@ -110,7 +110,7 @@ export const BureauDashboard: React.FC<BureauDashboardProps> = ({
           onClick={() => setActiveTab("impact_radar")}
           className={`pb-3 border-b-2 whitespace-nowrap cursor-pointer transition-colors ${
             activeTab === "impact_radar"
-              ? "border-blue-600 text-blue-600 dark:text-blue-400"
+              ? "border-emerald-600 text-emerald-600 dark:text-emerald-400"
               : "border-transparent text-slate-500 hover:text-slate-800 dark:text-slate-400"
           }`}
         >
@@ -120,7 +120,7 @@ export const BureauDashboard: React.FC<BureauDashboardProps> = ({
           onClick={() => setActiveTab("sign_off")}
           className={`pb-3 border-b-2 whitespace-nowrap cursor-pointer transition-colors flex items-center gap-1.5 ${
             activeTab === "sign_off"
-              ? "border-blue-600 text-blue-600 dark:text-blue-400"
+              ? "border-emerald-600 text-emerald-600 dark:text-emerald-400"
               : "border-transparent text-slate-500 hover:text-slate-800 dark:text-slate-400"
           }`}
         >
@@ -217,7 +217,7 @@ export const BureauDashboard: React.FC<BureauDashboardProps> = ({
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-xs space-y-1">
               <div className="text-xs text-slate-500 font-semibold">Seat Capacity Growth</div>
-              <div className="text-2xl font-bold tracking-tight text-blue-600 dark:text-blue-400 tabular-nums">
+              <div className="text-2xl font-bold tracking-tight text-emerald-600 dark:text-emerald-400 tabular-nums">
                 +{activeImpact.intakeCapacityImpact.netChange}{" "}
                 <span className="text-xs text-slate-500 font-normal">seats</span>
               </div>
@@ -293,7 +293,7 @@ export const BureauDashboard: React.FC<BureauDashboardProps> = ({
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
                     <div>
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="font-mono text-xs font-bold text-blue-600 dark:text-blue-400">
+                        <span className="font-mono text-xs font-bold text-emerald-600 dark:text-emerald-400">
                           {ord.applicationId}
                         </span>
                         <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">
@@ -346,7 +346,7 @@ export const BureauDashboard: React.FC<BureauDashboardProps> = ({
                     <div className="flex justify-end pt-1">
                       <button
                         onClick={() => handleDigitalSignOrder(ord.applicationId)}
-                        className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-colors cursor-pointer shadow-xs"
+                        className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition-colors cursor-pointer shadow-xs"
                       >
                         Authorize & Apply Digital Seal
                       </button>

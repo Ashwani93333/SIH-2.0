@@ -118,7 +118,7 @@ export const CommitteeDashboard: React.FC<CommitteeDashboardProps> = ({
                   }`}
                 >
                   <div className="flex justify-between items-start">
-                    <span className="font-mono text-xs font-bold text-blue-600 dark:text-blue-400">
+                    <span className="font-mono text-xs font-bold text-emerald-600 dark:text-emerald-400">
                       {c.applicationId}
                     </span>
                     <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300">
@@ -143,7 +143,7 @@ export const CommitteeDashboard: React.FC<CommitteeDashboardProps> = ({
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-xs space-y-5">
             <div className="pb-4 border-b border-slate-100 dark:border-slate-800">
               <div className="flex items-center gap-2 mb-1">
-                <span className="font-mono text-xs font-bold text-blue-600 dark:text-blue-400">
+                <span className="font-mono text-xs font-bold text-emerald-600 dark:text-emerald-400">
                   {activeCase.applicationId}
                 </span>
                 <span className="text-xs bg-rose-50 text-rose-700 border border-rose-200 px-2.5 py-0.5 rounded-full font-bold dark:bg-rose-950/70 dark:text-rose-300 dark:border-rose-800">
@@ -178,11 +178,11 @@ export const CommitteeDashboard: React.FC<CommitteeDashboardProps> = ({
                 </p>
               </div>
 
-              <div className="bg-blue-50/80 dark:bg-blue-950/30 border border-blue-200/80 dark:border-blue-900 p-4 rounded-xl space-y-1">
-                <div className="text-xs font-bold text-blue-900 dark:text-blue-200 uppercase tracking-wider">
+              <div className="bg-emerald-50/80 dark:bg-emerald-950/30 border border-emerald-200/80 dark:border-emerald-900 p-4 rounded-xl space-y-1">
+                <div className="text-xs font-bold text-emerald-900 dark:text-emerald-200 uppercase tracking-wider">
                   Legal Statutory Advisory Opinion
                 </div>
-                <p className="text-xs text-blue-800 dark:text-blue-300 leading-relaxed">
+                <p className="text-xs text-emerald-800 dark:text-emerald-300 leading-relaxed">
                   {activeCase.legalAdvisorNote}
                 </p>
               </div>

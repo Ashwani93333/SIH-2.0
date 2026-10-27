@@ -334,7 +334,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
             <span className="text-xs text-slate-500 font-mono font-semibold dark:text-slate-400">
               Code: {MOCK_INSTITUTION_PROFILE.code}
             </span>
-            <span className="bg-blue-50 text-blue-700 border border-blue-200 text-xs font-bold px-2 py-0.5 rounded-full dark:bg-blue-950/80 dark:border-blue-800 dark:text-blue-300">
+            <span className="bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-bold px-2 py-0.5 rounded-full dark:bg-emerald-950/80 dark:border-emerald-800 dark:text-emerald-300">
               AY 2026-27 Active
             </span>
           </div>
@@ -472,7 +472,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="font-mono font-bold text-sm text-blue-600 dark:text-blue-400">
+                        <span className="font-mono font-bold text-sm text-emerald-600 dark:text-emerald-400">
                           {app.applicationId}
                         </span>
                         <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
@@ -491,7 +491,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
                           app.currentStage === "APPROVED"
                             ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300"
                             : app.currentStage === "SUBMITTED"
-                            ? "bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300"
+                            ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300"
                             : "bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300"
                         }`}
                       >
@@ -555,7 +555,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
                     <div className="flex flex-wrap items-center gap-3">
                       <span>Existing Intake: <strong>{app.existingIntake}</strong></span>
                       <span>•</span>
-                      <span>Requested Intake: <strong className="text-blue-600 dark:text-blue-400">+{app.intakeRequested}</strong></span>
+                      <span>Requested Intake: <strong className="text-emerald-600 dark:text-emerald-400">+{app.intakeRequested}</strong></span>
                       <span>•</span>
                       <span>Statutory Files Attached: <strong>{app.documents.length} Files</strong></span>
                     </div>
@@ -610,7 +610,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
               onClick={() => setWizardStep(1)}
               className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
                 wizardStep === 1
-                  ? "bg-blue-50 border-blue-500 text-blue-700 dark:bg-blue-950 dark:text-blue-300 font-bold"
+                  ? "bg-emerald-50 border-emerald-500 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300 font-bold"
                   : "bg-slate-50 dark:bg-slate-800/60 border-slate-200 dark:border-slate-700 text-slate-500"
               }`}
             >
@@ -620,7 +620,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
               onClick={() => setWizardStep(2)}
               className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
                 wizardStep === 2
-                  ? "bg-blue-50 border-blue-500 text-blue-700 dark:bg-blue-950 dark:text-blue-300 font-bold"
+                  ? "bg-emerald-50 border-emerald-500 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300 font-bold"
                   : "bg-slate-50 dark:bg-slate-800/60 border-slate-200 dark:border-slate-700 text-slate-500"
               }`}
             >
@@ -630,7 +630,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
               onClick={() => setWizardStep(3)}
               className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
                 wizardStep === 3
-                  ? "bg-blue-50 border-blue-500 text-blue-700 dark:bg-blue-950 dark:text-blue-300 font-bold"
+                  ? "bg-emerald-50 border-emerald-500 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300 font-bold"
                   : "bg-slate-50 dark:bg-slate-800/60 border-slate-200 dark:border-slate-700 text-slate-500"
               }`}
             >
@@ -640,7 +640,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
               onClick={() => setWizardStep(4)}
               className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
                 wizardStep === 4
-                  ? "bg-blue-50 border-blue-500 text-blue-700 dark:bg-blue-950 dark:text-blue-300 font-bold"
+                  ? "bg-emerald-50 border-emerald-500 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300 font-bold"
                   : "bg-slate-50 dark:bg-slate-800/60 border-slate-200 dark:border-slate-700 text-slate-500"
               }`}
             >
@@ -660,7 +660,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
                     <select
                       value={regType}
                       onChange={(e) => setRegType(e.target.value as ApplicationDraft["type"])}
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-xs font-semibold focus:outline-hidden focus:ring-2 focus:ring-blue-500 cursor-pointer"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-xs font-semibold focus:outline-hidden focus:ring-2 focus:ring-emerald-500 cursor-pointer"
                     >
                       <option value="NEW_COURSE">Introduction of New Emerging Area Course</option>
                       <option value="INCREASE_INTAKE">Increase in Intake in Existing Course</option>
@@ -745,7 +745,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
                   <button
                     type="button"
                     onClick={() => setWizardStep(2)}
-                    className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs cursor-pointer"
+                    className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs cursor-pointer"
                   >
                     Next: Built-Up & Infrastructure ➔
                   </button>
@@ -756,7 +756,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
             {/* STEP 2: BUILT-UP & INFRASTRUCTURE */}
             {wizardStep === 2 && (
               <div className="space-y-5">
-                <div className="p-4 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800 text-xs text-blue-900 dark:text-blue-300 space-y-1">
+                <div className="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-xs text-emerald-900 dark:text-emerald-300 space-y-1">
                   <div className="font-bold">AICTE Land & Carpet Area Standard Norms:</div>
                   <div>Minimum instructional area required for 540 intake: 12,000 sq.m. Classrooms: min 18.</div>
                 </div>
@@ -810,7 +810,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
                   <button
                     type="button"
                     onClick={() => setWizardStep(3)}
-                    className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs cursor-pointer"
+                    className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs cursor-pointer"
                   >
                     Next: Faculty Cadre & FSR Engine ➔
                   </button>
@@ -905,7 +905,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
                   <button
                     type="button"
                     onClick={() => setWizardStep(4)}
-                    className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs cursor-pointer"
+                    className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs cursor-pointer"
                   >
                     Next: Upload Mandatory Statutory Files ➔
                   </button>
@@ -925,7 +925,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
                       Upload scanned PDF instruments. You can select actual local files or use verified synthetic documents.
                     </p>
                   </div>
-                  <span className="text-xs font-bold px-3 py-1 rounded-full bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300">
+                  <span className="text-xs font-bold px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300">
                     {Object.keys(uploadedFiles).length} of 6 Attached
                   </span>
                 </div>
@@ -992,7 +992,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
                                 <button
                                   type="button"
                                   onClick={() => setPreviewDoc(attachedData)}
-                                  className="text-blue-600 dark:text-blue-400 hover:underline font-semibold cursor-pointer"
+                                  className="text-emerald-600 dark:text-emerald-400 hover:underline font-semibold cursor-pointer"
                                 >
                                   View Instrument
                                 </button>
@@ -1009,7 +1009,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
                         ) : (
                           <div className="space-y-2">
                             {/* Drag and drop / local file selector */}
-                            <label className="border-2 border-dashed border-slate-300 dark:border-slate-700 hover:border-blue-500 rounded-xl p-3 flex flex-col items-center justify-center text-center cursor-pointer transition-colors bg-slate-50/50 dark:bg-slate-800/30">
+                            <label className="border-2 border-dashed border-slate-300 dark:border-slate-700 hover:border-emerald-500 rounded-xl p-3 flex flex-col items-center justify-center text-center cursor-pointer transition-colors bg-slate-50/50 dark:bg-slate-800/30">
                               <span className="text-base">📤</span>
                               <span className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mt-1">
                                 Click to browse PDF file
@@ -1031,7 +1031,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
                             <button
                               type="button"
                               onClick={() => handleFileUpload(docSchema.key, null, docSchema)}
-                              className="w-full py-1.5 px-2.5 rounded-lg bg-blue-50 hover:bg-blue-100 dark:bg-blue-950/70 dark:hover:bg-blue-900 text-blue-700 dark:text-blue-300 text-[11px] font-semibold transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                              className="w-full py-1.5 px-2.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/70 dark:hover:bg-emerald-900 text-emerald-700 dark:text-emerald-300 text-[11px] font-semibold transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
                             >
                               <span>⚡</span>
                               <span>Use Verified AICTE Synthetic Document</span>
@@ -1206,7 +1206,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <span className="font-mono text-xs font-bold text-blue-600 dark:text-blue-400">
+                    <span className="font-mono text-xs font-bold text-emerald-600 dark:text-emerald-400">
                       {rule.id}
                     </span>
                     <span className="text-[10px] text-slate-400">({rule.category})</span>
@@ -1285,7 +1285,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
                   <button
                     type="button"
                     onClick={() => setPreviewDoc(f)}
-                    className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 cursor-pointer"
+                    className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:underline flex items-center gap-1 cursor-pointer"
                   >
                     <span>👁️</span>
                     <span>View Verified Instrument</span>
@@ -1368,7 +1368,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
                 <h3 className="font-bold text-xs uppercase tracking-wider text-slate-800 dark:text-slate-200">
                   National Accreditation & Ranking Status (Cross-Record Signals)
                 </h3>
-                <span className="text-[10px] font-bold text-blue-600 bg-blue-50 dark:bg-blue-950 px-2 py-0.5 rounded">
+                <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded">
                   ✓ Verified by ACAS API
                 </span>
               </div>
@@ -1385,7 +1385,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
                 </div>
                 <div className="p-3 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 space-y-1">
                   <div className="text-[10px] font-bold uppercase text-slate-400">NIRF National Ranking</div>
-                  <div className="font-bold text-blue-600 text-sm">Rank Band 101-150 (Engg)</div>
+                  <div className="font-bold text-emerald-600 text-sm">Rank Band 101-150 (Engg)</div>
                   <div className="text-[10px] text-slate-500">Ministry of Education 2025</div>
                 </div>
               </div>
@@ -1492,7 +1492,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto p-6 space-y-5 shadow-2xl animate-in fade-in zoom-in-95 duration-150">
             <div className="flex items-start justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
               <div>
-                <span className="font-mono font-bold text-xs text-blue-600 dark:text-blue-400">
+                <span className="font-mono font-bold text-xs text-emerald-600 dark:text-emerald-400">
                   {selectedAppModal.applicationId}
                 </span>
                 <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
@@ -1518,7 +1518,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
               </div>
               <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60">
                 <span className="text-slate-400 block text-[10px] uppercase font-bold">Requested Seats</span>
-                <strong className="text-blue-600 dark:text-blue-400 font-mono">+{selectedAppModal.intakeRequested}</strong>
+                <strong className="text-emerald-600 dark:text-emerald-400 font-mono">+{selectedAppModal.intakeRequested}</strong>
               </div>
             </div>
 
@@ -1555,7 +1555,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
                             ocrConfidence: 99.2,
                           })
                         }
-                        className="text-blue-600 dark:text-blue-400 hover:underline font-semibold text-xs cursor-pointer"
+                        className="text-emerald-600 dark:text-emerald-400 hover:underline font-semibold text-xs cursor-pointer"
                       >
                         Preview File
                       </button>
@@ -1703,7 +1703,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
                     <td className="p-2">ENGINEERING & TECH</td>
                     <td className="p-2 font-bold">ARTIFICIAL INTELLIGENCE & DATA SCIENCE</td>
                     <td className="p-2 text-right">0</td>
-                    <td className="p-2 text-right font-bold text-blue-700">60 (NEW)</td>
+                    <td className="p-2 text-right font-bold text-emerald-700">60 (NEW)</td>
                     <td className="p-2 text-center text-emerald-700 font-bold">APPROVED</td>
                   </tr>
                   <tr>
@@ -1784,7 +1784,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl max-w-xl w-full p-6 space-y-4 shadow-2xl animate-in fade-in zoom-in-95 duration-150">
             <div className="flex items-start justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
               <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-800 flex items-center justify-center text-lg">
+                <div className="w-9 h-9 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-lg">
                   📑
                 </div>
                 <div>
@@ -1850,7 +1850,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
               </span>
               <button
                 onClick={() => setPreviewDoc(null)}
-                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold shadow-xs cursor-pointer"
+                className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-xs cursor-pointer"
               >
                 Done
               </button>

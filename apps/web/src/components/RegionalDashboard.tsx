@@ -212,7 +212,7 @@ export const RegionalDashboard: React.FC<RegionalDashboardProps> = ({
                   <div className="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                     <div
                       className={`h-full ${
-                        officer.activeDockets / officer.capacityLimit > 0.8 ? "bg-amber-500" : "bg-blue-600"
+                        officer.activeDockets / officer.capacityLimit > 0.8 ? "bg-amber-500" : "bg-emerald-600"
                       }`}
                       style={{ width: `${(officer.activeDockets / officer.capacityLimit) * 100}%` }}
                     />
@@ -257,7 +257,7 @@ export const RegionalDashboard: React.FC<RegionalDashboardProps> = ({
                 <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                   {applications.map((app) => (
                     <tr key={app.applicationId} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/40 transition-colors">
-                      <td className="py-3 px-3 font-mono font-bold text-blue-600 dark:text-blue-400">
+                      <td className="py-3 px-3 font-mono font-bold text-emerald-600 dark:text-emerald-400">
                         {app.applicationId}
                       </td>
                       <td className="py-3 px-3">

@@ -121,7 +121,7 @@ export const OnboardingPortal: React.FC<OnboardingPortalProps> = ({ onLogin }) =
 
   return (
     <div
-      className={`min-h-screen bg-[#f4f7fb] dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-all duration-200 ${
+      className={`min-h-screen bg-[#FAF7F2]/80 dark:bg-slate-950/60 text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-all duration-200 relative z-10 ${
         fontSizeOffset === 1 ? "text-base" : fontSizeOffset === -1 ? "text-xs" : "text-sm"
       }`}
     >
@@ -164,7 +164,7 @@ export const OnboardingPortal: React.FC<OnboardingPortalProps> = ({ onLogin }) =
             {/* Helpline & Support */}
             <button
               onClick={() => setShowHelpline(true)}
-              className="flex items-center gap-1 text-blue-700 dark:text-blue-400 hover:underline cursor-pointer"
+              className="flex items-center gap-1 text-emerald-700 dark:text-emerald-400 hover:underline cursor-pointer"
             >
               <span>📞</span>
               <span className="hidden sm:inline">Helpline & Support</span>
@@ -215,9 +215,13 @@ export const OnboardingPortal: React.FC<OnboardingPortalProps> = ({ onLogin }) =
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
           {/* Logo & Council Emblem Badge */}
           <div className="flex items-center gap-3">
-            {/* Stylized Emblem / Portal Seal (Safe Hackathon Prototype Styling) */}
-            <div className="w-12 h-12 rounded-xl bg-linear-to-tr from-amber-600 via-orange-500 to-amber-700 flex items-center justify-center text-white font-extrabold text-2xl shadow-md border-2 border-white dark:border-slate-800">
-              🏛️
+            {/* Official AICTE Logo Emblem */}
+            <div className="w-12 h-12 rounded-xl bg-white dark:bg-slate-900 flex items-center justify-center shadow-md border-2 border-white dark:border-slate-800 overflow-hidden p-1">
+              <img
+                src="/aicte-logo.png"
+                alt="AICTE Official Logo"
+                className="w-full h-full object-contain"
+              />
             </div>
             <div>
               <div className="flex items-center gap-2">
@@ -474,7 +478,7 @@ export const OnboardingPortal: React.FC<OnboardingPortalProps> = ({ onLogin }) =
                       Cross-record data verification and accreditation sync under statutory APH guidelines.
                     </p>
                   </div>
-                  <div className="pt-3 border-t border-slate-100 dark:border-slate-800 mt-3 text-[10px] text-blue-600 dark:text-blue-400 font-bold">
+                  <div className="pt-3 border-t border-slate-100 dark:border-slate-800 mt-3 text-[10px] text-emerald-600 dark:text-emerald-400 font-bold">
                     Connected Gateway ➔
                   </div>
                 </div>
@@ -542,7 +546,7 @@ export const OnboardingPortal: React.FC<OnboardingPortalProps> = ({ onLogin }) =
                     <button
                       type="button"
                       onClick={() => alert("Password recovery instructions dispatched to the registered head of institute / officer email.")}
-                      className="text-[11px] font-bold text-blue-600 dark:text-blue-400 hover:underline cursor-pointer"
+                      className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 hover:underline cursor-pointer"
                     >
                       Forgot Password?
                     </button>
@@ -588,7 +592,7 @@ export const OnboardingPortal: React.FC<OnboardingPortalProps> = ({ onLogin }) =
                         className="absolute inset-0 w-full h-full opacity-35 pointer-events-none"
                         xmlns="http://www.w3.org/2000/svg"
                       >
-                        <path d="M0,15 Q40,5 80,18 T160,10 T240,25" fill="none" stroke="#2563eb" strokeWidth="1.5" />
+                        <path d="M0,15 Q40,5 80,18 T160,10 T240,25" fill="none" stroke="#059669" strokeWidth="1.5" />
                         <path d="M0,25 Q50,35 100,12 T200,28 T300,15" fill="none" stroke="#ea580c" strokeWidth="1.5" />
                         <path d="M10,5 Q60,30 110,10 T210,20 T310,8" fill="none" stroke="#16a34a" strokeWidth="1.5" />
                       </svg>
@@ -679,7 +683,7 @@ export const OnboardingPortal: React.FC<OnboardingPortalProps> = ({ onLogin }) =
                   <button
                     type="button"
                     onClick={() => alert("Verification link dispatched to institutional head.")}
-                    className="text-blue-600 dark:text-blue-400 underline font-semibold cursor-pointer"
+                    className="text-emerald-600 dark:text-emerald-400 underline font-semibold cursor-pointer"
                   >
                     Verify Email
                   </button>
@@ -692,7 +696,7 @@ export const OnboardingPortal: React.FC<OnboardingPortalProps> = ({ onLogin }) =
               {/* Photo Banner with Badges matching Screenshot 1 & 2 */}
               <div className="relative rounded-2xl overflow-hidden bg-slate-900 aspect-16/9 flex items-end p-4 border border-slate-200 dark:border-slate-800">
                 {/* Background visual texture */}
-                <div className="absolute inset-0 bg-linear-to-tr from-slate-950 via-slate-900 to-indigo-950 opacity-90"></div>
+                <div className="absolute inset-0 bg-linear-to-tr from-slate-950 via-slate-900 to-slate-950 opacity-90"></div>
                 <div className="absolute inset-0 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:16px_16px] opacity-20"></div>
 
                 {/* Watermark / Badge Overlay */}
@@ -835,7 +839,7 @@ export const OnboardingPortal: React.FC<OnboardingPortalProps> = ({ onLogin }) =
               </div>
               <div className="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-xl space-y-1">
                 <div className="font-bold text-slate-800 dark:text-slate-200">Technical Support Desk:</div>
-                <div className="font-mono text-xs text-blue-600">helpdesk-approval@aicte-india.org</div>
+                <div className="font-mono text-xs text-emerald-600">helpdesk-approval@aicte-india.org</div>
               </div>
             </div>
             <div className="flex justify-end pt-2">
