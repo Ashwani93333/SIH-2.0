@@ -116,7 +116,9 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50/70 dark:bg-slate-950 text-slate-900 dark:text-slate-100 flex flex-col font-sans antialiased">
+    <div className="min-h-screen bg-[#FAF7F2]/60 dark:bg-slate-950/60 text-slate-900 dark:text-slate-100 flex flex-col font-sans antialiased relative z-10">
+      {/* Brightened Watermark for All Dashboard Pages */}
+      <div className="dashboard-watermark-bg" aria-hidden="true" />
       {/* Top Universal Header with Timeline, Profile & Gateway Return */}
       <Navbar
         currentRole={currentRole}
@@ -130,14 +132,14 @@ export default function Home() {
       {/* Floating Notification Toast */}
       {statusToast && (
         <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-4">
-          <div className="bg-blue-50 dark:bg-blue-950/70 border border-blue-200 dark:border-blue-800 py-2.5 px-4 rounded-xl text-blue-900 dark:text-blue-200 text-xs font-semibold flex items-center justify-between shadow-xs transition-all">
+          <div className="bg-emerald-50 dark:bg-emerald-950/70 border border-emerald-200 dark:border-emerald-800 py-2.5 px-4 rounded-xl text-emerald-900 dark:text-emerald-200 text-xs font-semibold flex items-center justify-between shadow-xs transition-all">
             <div className="flex items-center gap-2">
-              <span className="text-blue-600 dark:text-blue-400 font-bold">●</span>
+              <span className="text-emerald-600 dark:text-emerald-400 font-bold">●</span>
               <span>{statusToast}</span>
             </div>
             <button
               onClick={() => setStatusToast(null)}
-              className="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-200 font-bold cursor-pointer text-sm leading-none"
+              className="text-emerald-600 hover:text-emerald-900 dark:text-emerald-400 dark:hover:text-emerald-200 font-bold cursor-pointer text-sm leading-none"
             >
               ✕
             </button>

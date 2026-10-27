@@ -25,6 +25,12 @@ interface UploadedFileRecord {
   ocrConfidence: number;
   extractedValues?: Record<string, string | number>;
   fileBlobUrl?: string;
+  certificateNumber?: string;
+  issuingAuthority?: string;
+  institutionName?: string;
+  validityDate?: string;
+  validationFindings?: string[];
+  isVerified?: boolean;
 }
 
 export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
@@ -58,6 +64,12 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
     ocrConfidence?: number;
     extractedValues?: Record<string, string | number>;
     fileBlobUrl?: string;
+    certificateNumber?: string;
+    issuingAuthority?: string;
+    institutionName?: string;
+    validityDate?: string;
+    validationFindings?: string[];
+    isVerified?: boolean;
   } | null>(null);
 
   // Deficiency Response State
@@ -107,6 +119,29 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
       extractedValues: { "Issue Date": "2026-01-15", "Valid Till": "2027-01-14", "Coverage": "Entire Instructional Block A & B" },
     },
   });
+
+  // OCR + LLM Simulation State
+  const [isProcessingDoc, setIsProcessingDoc] = useState<boolean>(false);
+  const [activeScanningKey, setActiveScanningKey] = useState<string | null>(null);
+  const [scanStepIndex, setScanStepIndex] = useState<number>(0);
+  const [scanProgress, setScanProgress] = useState<number>(0);
+  const [stagedDocForProcess, setStagedDocForProcess] = useState<{
+    key: string;
+    file: File | null;
+    preset?: (typeof MANDATORY_DOCUMENTS_SCHEMA)[0];
+    fileName: string;
+    fileSize: string;
+  } | null>(null);
+  const [processingError, setProcessingError] = useState<string | null>(null);
+
+  const SCAN_STEPS = [
+    { title: "Uploading document…", desc: "Verifying binary stream & SHA-256 cryptographic checksum" },
+    { title: "Initializing OCR engine…", desc: "Loading Tesseract/PaddleOCR optical character models" },
+    { title: "Extracting text and certificate fields…", desc: "Recognizing statutory seals, stamps, dates, and authority clauses" },
+    { title: "Sending extracted data to the LLM validation stage…", desc: "Transmitting structured tokens to assistive compliance engine" },
+    { title: "Checking required fields and document completeness…", desc: "Cross-evaluating APH 2026-27 statutory norms & expiry parameters" },
+    { title: "Preparing verification report…", desc: "Finalizing confidence vectors and audit record" }
+  ];
 
   // Calculate live FSR
   const totalFaculty = regProfessors + regAssocProfessors + regAsstProfessors;
@@ -180,39 +215,186 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
     },
   ];
 
+  // Predefined mock metadata generator for simulated OCR + LLM results
+  const getMockOcrLlmResults = (key: string, fileName: string) => {
+    const mockMap: Record<string, { certNo: string; authority: string; instName: string; validity: string; score: number; findings: string[] }> = {
+      land_title: {
+        certNo: "REG-DL-2024/7821-LND",
+        authority: "Office of the Sub-Registrar IV, GNCT Delhi",
+        instName: "Delhi Institute of Engineering & Technology (DIET)",
+        validity: "Perpetual Title / Indefinite",
+        score: 99.4,
+        findings: [
+          "Clear, unencumbered 7.50-acre educational land zoning confirmed.",
+          "Sub-registrar digital endorsement stamp verified against cadastral survey.",
+          "Non-alienable educational trust lease clause complies with APH Norms 2026-27."
+        ]
+      },
+      building_plan: {
+        certNo: "PWD-CZ/BLD-2025/1104",
+        authority: "Central Public Works Department (CPWD) / MCD",
+        instName: "Delhi Institute of Engineering & Technology",
+        validity: "Approved for AY 2026-2031",
+        score: 98.8,
+        findings: [
+          "Instructional carpet area (14,500 sq.m) satisfies prescribed ceiling norms.",
+          "24 smart classrooms & 16 laboratories meet barrier-free safety requirements.",
+          "Structural stability compliance certificate signed by registered structural engineer."
+        ]
+      },
+      fire_noc: {
+        certNo: "DFS/HQ/2026/F-NOC-449",
+        authority: "Delhi Fire Services, Govt. of NCT of Delhi",
+        instName: "Delhi Institute of Engineering & Technology, Campus Block A/B",
+        validity: "Valid until 14-Jan-2027",
+        score: 99.1,
+        findings: [
+          "Fire hydrants, wet risers, and hose reels verified operational across all floors.",
+          "Auto-alarm and smoke extraction systems fully functional in laboratory wings.",
+          "Fire exit staircases (2.0m width) fully compliant with NBC Part IV standards."
+        ]
+      },
+      faculty_roster: {
+        certNo: "FAC-ROST/2026-AY-901",
+        authority: "Registrar / Academic Board of Governors",
+        instName: "Delhi Institute of Engineering & Technology",
+        validity: "AY 2026-2027 Academic Session",
+        score: 99.6,
+        findings: [
+          "34 regular approved faculty members cross-verified with Aadhaar & PAN registries.",
+          "FSR ratio computed at 1:17.6, comfortably within APH 1:20 mandatory limit.",
+          "Bank ECS salary disbursement and Form 16 statements verified."
+        ]
+      },
+      barrier_free: {
+        certNo: "PWD/ACC-BF/2025/338",
+        authority: "National Accessibility Council / State PWD",
+        instName: "Delhi Institute of Engineering & Technology",
+        validity: "Certified AY 2026-2028",
+        score: 98.5,
+        findings: [
+          "Continuous gradient wheelchair ramps operational at all instructional block entries.",
+          "Two Divyangjan-friendly Braille audio elevators inspected and certified.",
+          "Dedicated accessible washrooms provided on every educational floor."
+        ]
+      },
+      affiliation_order: {
+        certNo: "DTU/AFFIL/ACAD/2026/892",
+        authority: "Delhi Technological University (Affiliating University)",
+        instName: "Delhi Institute of Engineering & Technology (Affiliated Campus)",
+        validity: "Academic Year 2026-2027",
+        score: 99.3,
+        findings: [
+          "Affiliation resolution passed by University Academic Council on 12-Feb-2026.",
+          "Permanent sanctioned course programs and seat matrices verified.",
+          "University affiliation status active without pending academic inquiries."
+        ]
+      }
+    };
+
+    return mockMap[key] || {
+      certNo: `AICTE-VER-${key.toUpperCase()}-2026`,
+      authority: "Statutory Competent Authority",
+      instName: "Delhi Institute of Engineering & Technology",
+      validity: "30-June-2027",
+      score: 98.9,
+      findings: [
+        "Digital seal checksum verified against national registry database.",
+        "Document completeness check: all mandatory statutory clauses identified.",
+        "LLM compliance evaluation confirmed zero procedural deviations."
+      ]
+    };
+  };
+
+  // Launch Simulated 5-6 Second OCR + LLM Pipeline
+  const startProcessingAnimation = (key: string, file: File | null, preset?: (typeof MANDATORY_DOCUMENTS_SCHEMA)[0]) => {
+    if (isProcessingDoc) return; // Prevent concurrent submissions
+
+    setProcessingError(null);
+    setActiveScanningKey(key);
+    setIsProcessingDoc(true);
+    setScanStepIndex(0);
+    setScanProgress(0);
+
+    const fName = file ? file.name : (preset ? preset.sampleFileName : `${key}_document.pdf`);
+    const fSize = file ? `${(file.size / (1024 * 1024)).toFixed(1)} MB` : (preset ? preset.sampleSize : "3.5 MB");
+
+    setStagedDocForProcess({
+      key,
+      file,
+      preset,
+      fileName: fName,
+      fileSize: fSize
+    });
+
+    const totalDuration = 5400; // ~5.4 seconds realistic processing
+    const intervalTime = 60;
+    const totalTicks = totalDuration / intervalTime;
+    let currentTick = 0;
+
+    const timer = setInterval(() => {
+      currentTick += 1;
+      const progressRatio = Math.min(currentTick / totalTicks, 1);
+      const currentPct = Math.round(progressRatio * 100);
+      setScanProgress(currentPct);
+
+      // Step indices (0 to 5) mapped across 100%
+      if (currentPct < 15) setScanStepIndex(0);
+      else if (currentPct < 32) setScanStepIndex(1);
+      else if (currentPct < 52) setScanStepIndex(2);
+      else if (currentPct < 70) setScanStepIndex(3);
+      else if (currentPct < 88) setScanStepIndex(4);
+      else setScanStepIndex(5);
+
+      if (currentTick >= totalTicks) {
+        clearInterval(timer);
+
+        // Generate Predefined Mock Result
+        const mockData = getMockOcrLlmResults(key, fName);
+        const blobUrl = file ? URL.createObjectURL(file) : undefined;
+
+        const newRec: UploadedFileRecord = {
+          category: preset ? preset.category : "Infrastructure",
+          title: preset ? preset.title : fName,
+          fileName: fName,
+          fileSize: fSize,
+          uploadedAt: new Date().toISOString().split("T")[0],
+          status: "VERIFIED",
+          ocrConfidence: mockData.score,
+          certificateNumber: mockData.certNo,
+          issuingAuthority: mockData.authority,
+          institutionName: mockData.instName,
+          validityDate: mockData.validity,
+          validationFindings: mockData.findings,
+          isVerified: true,
+          extractedValues: (preset?.sampleValues || {
+            "Certificate No": mockData.certNo,
+            "Issuing Authority": mockData.authority,
+            "Validity": mockData.validity,
+            "LLM Verdict": "Compliant"
+          }) as unknown as Record<string, string | number>,
+          fileBlobUrl: blobUrl,
+        };
+
+        setUploadedFiles((prev) => ({ ...prev, [key]: newRec }));
+        setIsProcessingDoc(false);
+        setActiveScanningKey(null);
+        setPreviewDoc(newRec); // Automatically present the verified report modal
+        
+        if (onAddAuditEntry) {
+          onAddAuditEntry(
+            "AI OCR & LLM Extraction",
+            `Simulated OCR + LLM verified ${fName} (Score: ${mockData.score}%, Cert: ${mockData.certNo}).`,
+            "DOCS"
+          );
+        }
+      }
+    }, intervalTime);
+  };
+
   // Handle local real file selection or synthetic document fill
   const handleFileUpload = (key: string, file: File | null, preset?: (typeof MANDATORY_DOCUMENTS_SCHEMA)[0]) => {
-    if (file) {
-      const blobUrl = URL.createObjectURL(file);
-      const newRec: UploadedFileRecord = {
-        category: preset ? preset.category : "Infrastructure",
-        title: preset ? preset.title : file.name,
-        fileName: file.name,
-        fileSize: `${(file.size / (1024 * 1024)).toFixed(1)} MB`,
-        uploadedAt: new Date().toISOString().split("T")[0],
-        status: "VERIFIED",
-        ocrConfidence: 99.4,
-        extractedValues: (preset?.sampleValues || {
-          "File Type": file.type || "application/pdf",
-          "File Size": `${(file.size / 1024).toFixed(0)} KB`,
-          "Upload Status": "Locally Selected & Verified",
-        }) as unknown as Record<string, string | number>,
-        fileBlobUrl: blobUrl,
-      };
-      setUploadedFiles((prev) => ({ ...prev, [key]: newRec }));
-    } else if (preset) {
-      const newRec: UploadedFileRecord = {
-        category: preset.category,
-        title: preset.title,
-        fileName: preset.sampleFileName,
-        fileSize: preset.sampleSize,
-        uploadedAt: new Date().toISOString().split("T")[0],
-        status: "VERIFIED",
-        ocrConfidence: 99.1,
-        extractedValues: preset.sampleValues as unknown as Record<string, string | number>,
-      };
-      setUploadedFiles((prev) => ({ ...prev, [key]: newRec }));
-    }
+    startProcessingAnimation(key, file, preset);
   };
 
   const handleRemoveFile = (key: string) => {
@@ -334,7 +516,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
             <span className="text-xs text-slate-500 font-mono font-semibold dark:text-slate-400">
               Code: {MOCK_INSTITUTION_PROFILE.code}
             </span>
-            <span className="bg-blue-50 text-blue-700 border border-blue-200 text-xs font-bold px-2 py-0.5 rounded-full dark:bg-blue-950/80 dark:border-blue-800 dark:text-blue-300">
+            <span className="bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-bold px-2 py-0.5 rounded-full dark:bg-emerald-950/80 dark:border-emerald-800 dark:text-emerald-300">
               AY 2026-27 Active
             </span>
           </div>
@@ -472,7 +654,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="font-mono font-bold text-sm text-blue-600 dark:text-blue-400">
+                        <span className="font-mono font-bold text-sm text-emerald-600 dark:text-emerald-400">
                           {app.applicationId}
                         </span>
                         <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
@@ -491,7 +673,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
                           app.currentStage === "APPROVED"
                             ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300"
                             : app.currentStage === "SUBMITTED"
-                            ? "bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-300"
+                            ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300"
                             : "bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300"
                         }`}
                       >
@@ -555,7 +737,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
                     <div className="flex flex-wrap items-center gap-3">
                       <span>Existing Intake: <strong>{app.existingIntake}</strong></span>
                       <span>•</span>
-                      <span>Requested Intake: <strong className="text-blue-600 dark:text-blue-400">+{app.intakeRequested}</strong></span>
+                      <span>Requested Intake: <strong className="text-emerald-600 dark:text-emerald-400">+{app.intakeRequested}</strong></span>
                       <span>•</span>
                       <span>Statutory Files Attached: <strong>{app.documents.length} Files</strong></span>
                     </div>
@@ -610,7 +792,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
               onClick={() => setWizardStep(1)}
               className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
                 wizardStep === 1
-                  ? "bg-blue-50 border-blue-500 text-blue-700 dark:bg-blue-950 dark:text-blue-300 font-bold"
+                  ? "bg-emerald-50 border-emerald-500 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300 font-bold"
                   : "bg-slate-50 dark:bg-slate-800/60 border-slate-200 dark:border-slate-700 text-slate-500"
               }`}
             >
@@ -620,7 +802,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
               onClick={() => setWizardStep(2)}
               className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
                 wizardStep === 2
-                  ? "bg-blue-50 border-blue-500 text-blue-700 dark:bg-blue-950 dark:text-blue-300 font-bold"
+                  ? "bg-emerald-50 border-emerald-500 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300 font-bold"
                   : "bg-slate-50 dark:bg-slate-800/60 border-slate-200 dark:border-slate-700 text-slate-500"
               }`}
             >
@@ -630,7 +812,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
               onClick={() => setWizardStep(3)}
               className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
                 wizardStep === 3
-                  ? "bg-blue-50 border-blue-500 text-blue-700 dark:bg-blue-950 dark:text-blue-300 font-bold"
+                  ? "bg-emerald-50 border-emerald-500 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300 font-bold"
                   : "bg-slate-50 dark:bg-slate-800/60 border-slate-200 dark:border-slate-700 text-slate-500"
               }`}
             >
@@ -640,7 +822,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
               onClick={() => setWizardStep(4)}
               className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
                 wizardStep === 4
-                  ? "bg-blue-50 border-blue-500 text-blue-700 dark:bg-blue-950 dark:text-blue-300 font-bold"
+                  ? "bg-emerald-50 border-emerald-500 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300 font-bold"
                   : "bg-slate-50 dark:bg-slate-800/60 border-slate-200 dark:border-slate-700 text-slate-500"
               }`}
             >
@@ -660,7 +842,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
                     <select
                       value={regType}
                       onChange={(e) => setRegType(e.target.value as ApplicationDraft["type"])}
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-xs font-semibold focus:outline-hidden focus:ring-2 focus:ring-blue-500 cursor-pointer"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 text-xs font-semibold focus:outline-hidden focus:ring-2 focus:ring-emerald-500 cursor-pointer"
                     >
                       <option value="NEW_COURSE">Introduction of New Emerging Area Course</option>
                       <option value="INCREASE_INTAKE">Increase in Intake in Existing Course</option>
@@ -745,7 +927,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
                   <button
                     type="button"
                     onClick={() => setWizardStep(2)}
-                    className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs cursor-pointer"
+                    className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs cursor-pointer"
                   >
                     Next: Built-Up & Infrastructure ➔
                   </button>
@@ -756,7 +938,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
             {/* STEP 2: BUILT-UP & INFRASTRUCTURE */}
             {wizardStep === 2 && (
               <div className="space-y-5">
-                <div className="p-4 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800 text-xs text-blue-900 dark:text-blue-300 space-y-1">
+                <div className="p-4 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-xs text-emerald-900 dark:text-emerald-300 space-y-1">
                   <div className="font-bold">AICTE Land & Carpet Area Standard Norms:</div>
                   <div>Minimum instructional area required for 540 intake: 12,000 sq.m. Classrooms: min 18.</div>
                 </div>
@@ -810,7 +992,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
                   <button
                     type="button"
                     onClick={() => setWizardStep(3)}
-                    className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs cursor-pointer"
+                    className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs cursor-pointer"
                   >
                     Next: Faculty Cadre & FSR Engine ➔
                   </button>
@@ -905,7 +1087,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
                   <button
                     type="button"
                     onClick={() => setWizardStep(4)}
-                    className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-xs cursor-pointer"
+                    className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs cursor-pointer"
                   >
                     Next: Upload Mandatory Statutory Files ➔
                   </button>
@@ -925,7 +1107,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
                       Upload scanned PDF instruments. You can select actual local files or use verified synthetic documents.
                     </p>
                   </div>
-                  <span className="text-xs font-bold px-3 py-1 rounded-full bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300">
+                  <span className="text-xs font-bold px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300">
                     {Object.keys(uploadedFiles).length} of 6 Attached
                   </span>
                 </div>
@@ -992,7 +1174,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
                                 <button
                                   type="button"
                                   onClick={() => setPreviewDoc(attachedData)}
-                                  className="text-blue-600 dark:text-blue-400 hover:underline font-semibold cursor-pointer"
+                                  className="text-emerald-600 dark:text-emerald-400 hover:underline font-semibold cursor-pointer"
                                 >
                                   View Instrument
                                 </button>
@@ -1009,17 +1191,21 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
                         ) : (
                           <div className="space-y-2">
                             {/* Drag and drop / local file selector */}
-                            <label className="border-2 border-dashed border-slate-300 dark:border-slate-700 hover:border-blue-500 rounded-xl p-3 flex flex-col items-center justify-center text-center cursor-pointer transition-colors bg-slate-50/50 dark:bg-slate-800/30">
+                            <label className={`border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-xl p-3 flex flex-col items-center justify-center text-center transition-colors bg-slate-50/50 dark:bg-slate-800/30 ${
+                              isProcessingDoc ? 'opacity-50 cursor-not-allowed' : 'hover:border-emerald-500 cursor-pointer'
+                            }`}>
                               <span className="text-base">📤</span>
                               <span className="text-[11px] font-semibold text-slate-700 dark:text-slate-300 mt-1">
-                                Click to browse PDF file
+                                {isProcessingDoc ? 'Processing in progress...' : 'Click to browse PDF file'}
                               </span>
                               <span className="text-[10px] text-slate-400">PDF, max 15MB</span>
                               <input
                                 type="file"
                                 accept=".pdf,.xlsx,.csv,.docx"
+                                disabled={isProcessingDoc}
                                 className="hidden"
                                 onChange={(e) => {
+                                  if (isProcessingDoc) return;
                                   if (e.target.files && e.target.files[0]) {
                                     handleFileUpload(docSchema.key, e.target.files[0], docSchema);
                                   }
@@ -1030,11 +1216,19 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
                             {/* One-click Synthetic Document Pre-Fill */}
                             <button
                               type="button"
-                              onClick={() => handleFileUpload(docSchema.key, null, docSchema)}
-                              className="w-full py-1.5 px-2.5 rounded-lg bg-blue-50 hover:bg-blue-100 dark:bg-blue-950/70 dark:hover:bg-blue-900 text-blue-700 dark:text-blue-300 text-[11px] font-semibold transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                              disabled={isProcessingDoc}
+                              onClick={() => {
+                                if (isProcessingDoc) return;
+                                handleFileUpload(docSchema.key, null, docSchema);
+                              }}
+                              className={`w-full py-1.5 px-2.5 rounded-lg text-[11px] font-semibold transition-colors flex items-center justify-center gap-1.5 ${
+                                isProcessingDoc
+                                  ? 'bg-slate-100 dark:bg-slate-800 text-slate-400 cursor-not-allowed'
+                                  : 'bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/70 dark:hover:bg-emerald-900 text-emerald-700 dark:text-emerald-300 cursor-pointer'
+                              }`}
                             >
                               <span>⚡</span>
-                              <span>Use Verified AICTE Synthetic Document</span>
+                              <span>{isProcessingDoc ? 'Processing Document...' : 'Use Verified AICTE Synthetic Document'}</span>
                             </button>
                           </div>
                         )}
@@ -1168,7 +1362,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
                     ) : (
                       <div className="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 text-xs text-emerald-800 dark:text-emerald-300 space-y-1">
                         <div className="font-bold">✓ Response Submitted:</div>
-                        <div>"{def.responseExplanation}"</div>
+                        <div>&quot;{def.responseExplanation}&quot;</div>
                         {def.rectificationDocName && (
                           <div className="text-[11px] text-emerald-700 dark:text-emerald-400">
                             Attached Instrument: {def.rectificationDocName}
@@ -1206,7 +1400,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <span className="font-mono text-xs font-bold text-blue-600 dark:text-blue-400">
+                    <span className="font-mono text-xs font-bold text-emerald-600 dark:text-emerald-400">
                       {rule.id}
                     </span>
                     <span className="text-[10px] text-slate-400">({rule.category})</span>
@@ -1285,7 +1479,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
                   <button
                     type="button"
                     onClick={() => setPreviewDoc(f)}
-                    className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 cursor-pointer"
+                    className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:underline flex items-center gap-1 cursor-pointer"
                   >
                     <span>👁️</span>
                     <span>View Verified Instrument</span>
@@ -1368,7 +1562,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
                 <h3 className="font-bold text-xs uppercase tracking-wider text-slate-800 dark:text-slate-200">
                   National Accreditation & Ranking Status (Cross-Record Signals)
                 </h3>
-                <span className="text-[10px] font-bold text-blue-600 bg-blue-50 dark:bg-blue-950 px-2 py-0.5 rounded">
+                <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 dark:bg-emerald-950 px-2 py-0.5 rounded">
                   ✓ Verified by ACAS API
                 </span>
               </div>
@@ -1385,7 +1579,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
                 </div>
                 <div className="p-3 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 space-y-1">
                   <div className="text-[10px] font-bold uppercase text-slate-400">NIRF National Ranking</div>
-                  <div className="font-bold text-blue-600 text-sm">Rank Band 101-150 (Engg)</div>
+                  <div className="font-bold text-emerald-600 text-sm">Rank Band 101-150 (Engg)</div>
                   <div className="text-[10px] text-slate-500">Ministry of Education 2025</div>
                 </div>
               </div>
@@ -1492,7 +1686,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto p-6 space-y-5 shadow-2xl animate-in fade-in zoom-in-95 duration-150">
             <div className="flex items-start justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
               <div>
-                <span className="font-mono font-bold text-xs text-blue-600 dark:text-blue-400">
+                <span className="font-mono font-bold text-xs text-emerald-600 dark:text-emerald-400">
                   {selectedAppModal.applicationId}
                 </span>
                 <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">
@@ -1518,7 +1712,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
               </div>
               <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60">
                 <span className="text-slate-400 block text-[10px] uppercase font-bold">Requested Seats</span>
-                <strong className="text-blue-600 dark:text-blue-400 font-mono">+{selectedAppModal.intakeRequested}</strong>
+                <strong className="text-emerald-600 dark:text-emerald-400 font-mono">+{selectedAppModal.intakeRequested}</strong>
               </div>
             </div>
 
@@ -1555,7 +1749,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
                             ocrConfidence: 99.2,
                           })
                         }
-                        className="text-blue-600 dark:text-blue-400 hover:underline font-semibold text-xs cursor-pointer"
+                        className="text-emerald-600 dark:text-emerald-400 hover:underline font-semibold text-xs cursor-pointer"
                       >
                         Preview File
                       </button>
@@ -1703,7 +1897,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
                     <td className="p-2">ENGINEERING & TECH</td>
                     <td className="p-2 font-bold">ARTIFICIAL INTELLIGENCE & DATA SCIENCE</td>
                     <td className="p-2 text-right">0</td>
-                    <td className="p-2 text-right font-bold text-blue-700">60 (NEW)</td>
+                    <td className="p-2 text-right font-bold text-emerald-700">60 (NEW)</td>
                     <td className="p-2 text-center text-emerald-700 font-bold">APPROVED</td>
                   </tr>
                   <tr>
@@ -1777,14 +1971,139 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
       )}
 
       {/* ========================================================================= */}
-      {/* HIGH-FIDELITY STATUTORY DOCUMENT PREVIEW MODAL */}
+      {/* MODAL: SIMULATED OCR + LLM DOCUMENT PROCESSING PIPELINE (5-6 SECONDS) */}
+      {/* ========================================================================= */}
+      {isProcessingDoc && stagedDocForProcess && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-md p-4 animate-in fade-in duration-200">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl max-w-xl w-full p-6 sm:p-7 space-y-5 shadow-2xl relative overflow-hidden">
+            
+            {/* Header Badge & Demo Mode Label */}
+            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3.5">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-sm">
+                  ⚡
+                </div>
+                <div>
+                  <h3 className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
+                    <span>Document AI & LLM Engine</span>
+                  </h3>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">
+                    Autonomous Statutory Extraction & Compliance Checks
+                  </p>
+                </div>
+              </div>
+              <span className="px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-700 dark:text-amber-400 text-[10px] font-extrabold tracking-wider uppercase">
+                Demo Mode • Simulated AI Processing
+              </span>
+            </div>
+
+            {/* Document Hologram / Scan Line Area */}
+            <div className="relative rounded-2xl bg-slate-950 border border-slate-800 p-5 overflow-hidden shadow-inner text-slate-100 space-y-3.5">
+              {/* Dynamic Scan Line Effect */}
+              <div className="absolute inset-x-0 h-1 bg-linear-to-r from-transparent via-emerald-400 to-transparent shadow-[0_0_12px_#10b981] animate-scanline pointer-events-none z-20"></div>
+
+              {/* Watermark Grid Background */}
+              <div className="absolute inset-0 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:16px_16px] opacity-15 pointer-events-none"></div>
+
+              {/* File details & Percentage */}
+              <div className="relative z-10 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-700 flex items-center justify-center text-xl shrink-0">
+                    📄
+                  </div>
+                  <div className="min-w-0">
+                    <div className="font-bold text-sm text-slate-100 truncate">
+                      {stagedDocForProcess.fileName}
+                    </div>
+                    <div className="text-[11px] text-slate-400 flex items-center gap-2">
+                      <span>{stagedDocForProcess.fileSize}</span>
+                      <span>•</span>
+                      <span>Encrypted Document Stream</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="text-right shrink-0">
+                  <div className="text-2xl font-black text-emerald-400 font-mono tracking-tight tabular-nums">
+                    {scanProgress}%
+                  </div>
+                  <div className="text-[9px] uppercase tracking-wider text-slate-400 font-bold">Progress</div>
+                </div>
+              </div>
+
+              {/* Glowing Real-time Progress Bar */}
+              <div className="relative z-10 w-full bg-slate-800 rounded-full h-2.5 overflow-hidden">
+                <div
+                  className="bg-linear-to-r from-emerald-500 via-teal-400 to-emerald-400 h-2.5 rounded-full transition-all duration-75 shadow-[0_0_8px_#10b981]"
+                  style={{ width: `${scanProgress}%` }}
+                ></div>
+              </div>
+            </div>
+
+            {/* Sequential Step Timeline (6-Stage Verification Pipeline) */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-slate-400 px-1">
+                <span>Verification Pipeline</span>
+                <span className="text-emerald-600 dark:text-emerald-400">Step {scanStepIndex + 1} of 6</span>
+              </div>
+              <div className="space-y-1.5 bg-slate-50 dark:bg-slate-800/40 rounded-2xl p-3 border border-slate-200/80 dark:border-slate-800 text-xs">
+                {SCAN_STEPS.map((step, idx) => {
+                  const isDone = idx < scanStepIndex;
+                  const isCurrent = idx === scanStepIndex;
+
+                  return (
+                    <div
+                      key={idx}
+                      className={`flex items-start gap-2.5 p-2 rounded-xl transition-all duration-200 ${
+                        isCurrent
+                          ? "bg-white dark:bg-slate-800 shadow-xs border border-emerald-500/30 text-emerald-950 dark:text-emerald-100"
+                          : isDone
+                          ? "text-slate-700 dark:text-slate-300 opacity-80"
+                          : "text-slate-400 opacity-40"
+                      }`}
+                    >
+                      <div className="pt-0.5 shrink-0">
+                        {isDone ? (
+                          <div className="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[10px] font-bold">
+                            ✓
+                          </div>
+                        ) : isCurrent ? (
+                          <div className="w-4 h-4 rounded-full border-2 border-emerald-500 border-t-transparent animate-spin"></div>
+                        ) : (
+                          <div className="w-4 h-4 rounded-full border border-slate-300 dark:border-slate-600 flex items-center justify-center text-[9px] font-semibold">
+                            {idx + 1}
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className={`font-semibold text-xs leading-tight ${isCurrent ? "text-emerald-600 dark:text-emerald-400 font-bold" : ""}`}>
+                          {step.title}
+                        </div>
+                        <p className="text-[10px] text-slate-500 dark:text-slate-400 truncate pt-0.5">
+                          {step.desc}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="text-center text-[11px] text-slate-400 font-medium">
+              Simulated AI processing pipeline executing optical character extraction and statutory validation.
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================================= */}
+      {/* HIGH-FIDELITY STATUTORY DOCUMENT PREVIEW & OCR DETAIL MODAL */}
       {/* ========================================================================= */}
       {previewDoc && (
         <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-xs flex items-center justify-center p-4">
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl max-w-xl w-full p-6 space-y-4 shadow-2xl animate-in fade-in zoom-in-95 duration-150">
             <div className="flex items-start justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
               <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-800 flex items-center justify-center text-lg">
+                <div className="w-9 h-9 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center text-lg">
                   📑
                 </div>
                 <div>
@@ -1804,43 +2123,67 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
               </button>
             </div>
 
-            {/* Document Digital Watermark Sheet */}
-            <div className="border border-slate-200 dark:border-slate-700 rounded-xl p-5 bg-linear-to-b from-slate-50 via-white to-slate-50 dark:from-slate-800/40 dark:via-slate-800/20 dark:to-slate-800/40 space-y-3 relative overflow-hidden">
+            {/* Verification Report Sheet */}
+            <div className="border border-slate-200 dark:border-slate-700 rounded-2xl p-5 bg-linear-to-b from-slate-50 via-white to-slate-50 dark:from-slate-800/40 dark:via-slate-800/20 dark:to-slate-800/40 space-y-4 relative overflow-hidden">
               <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider text-slate-500 border-b border-slate-200 dark:border-slate-700 pb-2">
-                <span>AICTE Document AI Verification</span>
-                <span className="text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
-                  <span>✓</span> Authenticity Confirmed
+                <span className="flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-extrabold">
+                  <span>✓</span> Simulated AI Verification Report
+                </span>
+                <span className="bg-amber-100 text-amber-800 dark:bg-amber-950/80 dark:text-amber-300 text-[10px] px-2 py-0.5 rounded-full font-bold border border-amber-200 dark:border-amber-800">
+                  Demo Mode
                 </span>
               </div>
 
-              <div className="text-center py-3 space-y-1">
-                <div className="text-2xl">🏛️</div>
-                <div className="text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wide">
-                  Statutory Regulatory Instrument
+              {/* Primary Predefined Extracted Credentials */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
+                <div className="p-2.5 rounded-xl bg-white dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700/80">
+                  <div className="text-[10px] uppercase font-bold text-slate-400">Certificate Number</div>
+                  <div className="font-mono font-bold text-slate-800 dark:text-slate-100 text-xs pt-0.5 truncate">
+                    {previewDoc.certificateNumber || "DFS/HQ/2026/F-NOC-449"}
+                  </div>
                 </div>
-                <div className="text-[11px] text-slate-500">
-                  Category: {previewDoc.category || "General Compliance"}
+                <div className="p-2.5 rounded-xl bg-white dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700/80">
+                  <div className="text-[10px] uppercase font-bold text-slate-400">Issuing Statutory Authority</div>
+                  <div className="font-bold text-slate-800 dark:text-slate-100 text-xs pt-0.5 truncate">
+                    {previewDoc.issuingAuthority || "Competent Statutory Authority"}
+                  </div>
+                </div>
+                <div className="p-2.5 rounded-xl bg-white dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700/80">
+                  <div className="text-[10px] uppercase font-bold text-slate-400">Institution Name Recognized</div>
+                  <div className="font-bold text-slate-800 dark:text-slate-100 text-xs pt-0.5 truncate">
+                    {previewDoc.institutionName || "Delhi Institute of Engineering & Technology"}
+                  </div>
+                </div>
+                <div className="p-2.5 rounded-xl bg-white dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700/80">
+                  <div className="text-[10px] uppercase font-bold text-slate-400">Validity Period / Expiry</div>
+                  <div className="font-semibold text-emerald-600 dark:text-emerald-400 text-xs pt-0.5 truncate">
+                    {previewDoc.validityDate || "AY 2026-2027 (Active Valid)"}
+                  </div>
                 </div>
               </div>
 
-              {previewDoc.extractedValues && (
-                <div className="bg-white/80 dark:bg-slate-900/80 rounded-lg p-3 border border-slate-200/80 dark:border-slate-700 text-xs space-y-1.5">
-                  <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                    AI OCR Extracted Metadata:
-                  </div>
-                  <div className="grid grid-cols-2 gap-2 text-[11px]">
-                    {Object.entries(previewDoc.extractedValues).map(([k, v]) => (
-                      <div key={k} className="p-1.5 bg-slate-50 dark:bg-slate-800 rounded">
-                        <span className="text-slate-400 block text-[10px]">{k}</span>
-                        <strong className="text-slate-800 dark:text-slate-200">{String(v)}</strong>
-                      </div>
-                    ))}
-                  </div>
+              {/* Validation Findings & LLM Verification Checklist */}
+              <div className="bg-white/80 dark:bg-slate-900/80 rounded-xl p-3 border border-slate-200/80 dark:border-slate-700 text-xs space-y-2">
+                <div className="text-[10px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 flex items-center justify-between">
+                  <span>LLM Statutory Validation Findings:</span>
+                  <span className="text-emerald-600 dark:text-emerald-400 font-bold">100% Passed</span>
                 </div>
-              )}
+                <ul className="space-y-1.5 text-[11px] text-slate-600 dark:text-slate-300">
+                  {(previewDoc.validationFindings || [
+                    "Statutory clauses and digital signatures cross-verified against Approval Process Handbook 2026-27.",
+                    "Mandatory institutional carpet area, safety provisions, and governance criteria satisfied.",
+                    "Document cryptographic hash authenticated without tampering or procedural omissions."
+                  ]).map((finding: string, idx: number) => (
+                    <li key={idx} className="flex items-start gap-2">
+                      <span className="text-emerald-500 font-bold shrink-0">✓</span>
+                      <span>{finding}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-              <div className="text-[10px] text-slate-400 text-center pt-1 border-t border-slate-200 dark:border-slate-700">
-                DSC Cryptographic Seal: <strong>SHA-256 (Valid till AY 2026-27)</strong> • AICTE SETU v3.0
+              <div className="text-[10px] text-slate-400 text-center pt-1 border-t border-slate-200 dark:border-slate-700 font-mono">
+                Verification Ledger: <strong>SHA-256 (Simulated Integrity Certified)</strong> • AICTE SETU v3.0
               </div>
             </div>
 
@@ -1850,7 +2193,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
               </span>
               <button
                 onClick={() => setPreviewDoc(null)}
-                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold shadow-xs cursor-pointer"
+                className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-xs cursor-pointer"
               >
                 Done
               </button>

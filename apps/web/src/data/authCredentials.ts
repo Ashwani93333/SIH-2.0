@@ -80,7 +80,7 @@ export const DEMO_ACCOUNTS: DemoAccount[] = [
     securityPin: "2026",
     avatarIcon: "🔍",
     badgeText: "Scrutiny Desk",
-    badgeColor: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20",
+    badgeColor: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
     portalTitle: "AICTE Technical Scrutiny & Document AI Desk",
     description: "Multi-layered rule verification, automated Document AI OCR cross-check, ghost faculty detection, and single-click deficiency notices.",
     capabilities: [
@@ -146,7 +146,7 @@ export const DEMO_ACCOUNTS: DemoAccount[] = [
     securityPin: "2026",
     avatarIcon: "📊",
     badgeText: "Bureau HQ",
-    badgeColor: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-500/20",
+    badgeColor: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20",
     portalTitle: "AICTE Central Approvals Bureau HQ",
     description: "Pan-India oversight, pipeline bottleneck diagnostics, seat capacity expansion analytics, and executive compliance radar.",
     capabilities: [

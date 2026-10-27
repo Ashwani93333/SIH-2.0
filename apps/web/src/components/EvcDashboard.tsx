@@ -88,7 +88,7 @@ export const EvcDashboard: React.FC<EvcDashboardProps> = ({
       <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 pt-7 sm:pt-9 shadow-xs flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div className="space-y-1.5">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="bg-blue-50 text-blue-700 border border-blue-200 text-xs font-bold px-3 py-0.5 rounded-full dark:bg-blue-950/80 dark:border-blue-800 dark:text-blue-300">
+            <span className="bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-bold px-3 py-0.5 rounded-full dark:bg-emerald-950/80 dark:border-emerald-800 dark:text-emerald-300">
               EVC Operations Directorate
             </span>
             <span className="text-xs text-slate-500 font-semibold dark:text-slate-400">
@@ -106,7 +106,7 @@ export const EvcDashboard: React.FC<EvcDashboardProps> = ({
         <div className="flex items-center gap-3 w-full sm:w-auto">
           <button
             onClick={() => setShowScheduleModal(true)}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold text-xs shadow-xs hover:shadow-sm transition-all cursor-pointer"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold text-xs shadow-xs hover:shadow-sm transition-all cursor-pointer"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
@@ -140,7 +140,7 @@ export const EvcDashboard: React.FC<EvcDashboardProps> = ({
               <h2 className="text-sm font-bold tracking-tight text-slate-900 dark:text-slate-100">
                 Active & Scheduled On-Site Inspections
               </h2>
-              <span className="text-xs font-bold px-2 py-0.5 bg-blue-50 text-blue-700 border border-blue-200/80 rounded-full dark:bg-blue-950 dark:text-blue-300 dark:border-blue-800 tabular-nums">
+              <span className="text-xs font-bold px-2 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-200/80 rounded-full dark:bg-emerald-950 dark:text-emerald-300 dark:border-emerald-800 tabular-nums">
                 {inspections.length}
               </span>
             </div>
@@ -162,7 +162,7 @@ export const EvcDashboard: React.FC<EvcDashboardProps> = ({
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pb-3 border-b border-slate-100 dark:border-slate-800">
                     <div>
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="font-mono text-xs font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/80 px-2 py-0.5 rounded border border-blue-200/60 dark:border-blue-800">
+                        <span className="font-mono text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-200/60 dark:border-emerald-800">
                           {visit.id}
                         </span>
                         <span className="font-mono text-xs text-slate-500 dark:text-slate-400">
@@ -295,7 +295,7 @@ export const EvcDashboard: React.FC<EvcDashboardProps> = ({
                     className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
                       exp.status === "AVAILABLE"
                         ? "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/70 dark:text-emerald-300 dark:border-emerald-800"
-                        : "bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/70 dark:text-blue-300 dark:border-blue-800"
+                        : "bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/70 dark:text-emerald-300 dark:border-emerald-800"
                     }`}
                   >
                     {exp.status.replace(/_/g, " ")}
@@ -419,7 +419,7 @@ export const EvcDashboard: React.FC<EvcDashboardProps> = ({
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold shadow-xs cursor-pointer"
+                  className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-semibold shadow-xs cursor-pointer"
                 >
                   Confirm & Dispatch
                 </button>

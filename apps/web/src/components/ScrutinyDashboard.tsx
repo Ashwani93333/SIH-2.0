@@ -71,7 +71,7 @@ export const ScrutinyDashboard: React.FC<ScrutinyDashboardProps> = ({
       <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 pt-7 sm:pt-9 shadow-xs flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <span className="bg-blue-50 text-blue-700 border border-blue-200 text-xs font-bold px-3 py-0.5 rounded-full dark:bg-blue-950/80 dark:border-blue-800 dark:text-blue-300">
+            <span className="bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-bold px-3 py-0.5 rounded-full dark:bg-emerald-950/80 dark:border-emerald-800 dark:text-emerald-300">
               Technical Scrutiny Desk
             </span>
             <span className="text-xs text-slate-500 font-mono font-semibold dark:text-slate-400">
@@ -88,7 +88,7 @@ export const ScrutinyDashboard: React.FC<ScrutinyDashboardProps> = ({
 
         <div className="flex items-center gap-3">
           <div className="bg-slate-50 dark:bg-slate-800/60 px-4 py-2.5 rounded-xl border border-slate-200/80 dark:border-slate-700 text-center min-w-24">
-            <div className="font-bold text-lg text-blue-600 dark:text-blue-400 tabular-nums">{dockets.length}</div>
+            <div className="font-bold text-lg text-emerald-600 dark:text-emerald-400 tabular-nums">{dockets.length}</div>
             <div className="text-[11px] text-slate-500 font-medium">Active Dockets</div>
           </div>
           <div className="bg-slate-50 dark:bg-slate-800/60 px-4 py-2.5 rounded-xl border border-slate-200/80 dark:border-slate-700 text-center min-w-24">
@@ -134,12 +134,12 @@ export const ScrutinyDashboard: React.FC<ScrutinyDashboardProps> = ({
                   onClick={() => setSelectedAppId(dock.applicationId)}
                   className={`p-4 rounded-xl border cursor-pointer transition-all space-y-2 ${
                     isSelected
-                      ? "bg-blue-50/70 border-blue-500 shadow-xs dark:bg-blue-950/40 dark:border-blue-600"
+                      ? "bg-emerald-50/70 border-emerald-500 shadow-xs dark:bg-emerald-950/40 dark:border-emerald-600"
                       : "bg-white border-slate-200 hover:border-slate-300 dark:bg-slate-900 dark:border-slate-800"
                   }`}
                 >
                   <div className="flex justify-between items-start">
-                    <span className="font-mono text-xs font-bold text-blue-600 dark:text-blue-400">
+                    <span className="font-mono text-xs font-bold text-emerald-600 dark:text-emerald-400">
                       {dock.applicationId}
                     </span>
                     {deficientCount > 0 ? (
@@ -170,7 +170,7 @@ export const ScrutinyDashboard: React.FC<ScrutinyDashboardProps> = ({
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-xs space-y-5">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pb-4 border-b border-slate-100 dark:border-slate-800">
               <div>
-                <span className="text-xs font-mono text-blue-600 dark:text-blue-400 font-bold">
+                <span className="text-xs font-mono text-emerald-600 dark:text-emerald-400 font-bold">
                   {activeDocket.applicationId}
                 </span>
                 <h2 className="text-xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
@@ -190,7 +190,7 @@ export const ScrutinyDashboard: React.FC<ScrutinyDashboardProps> = ({
                 </button>
                 <button
                   onClick={handleRecommendEVC}
-                  className="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-semibold transition-colors cursor-pointer shadow-xs"
+                  className="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold transition-colors cursor-pointer shadow-xs"
                 >
                   Recommend EVC Visit
                 </button>
@@ -286,9 +286,9 @@ export const ScrutinyDashboard: React.FC<ScrutinyDashboardProps> = ({
             </div>
 
             {/* Recommendation Banner */}
-            <div className="bg-blue-50/80 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 rounded-xl p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+            <div className="bg-emerald-50/80 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900 rounded-xl p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
               <div>
-                <div className="text-xs font-bold uppercase tracking-wider text-blue-700 dark:text-blue-300">
+                <div className="text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-300">
                   Scrutiny Recommendation Summary
                 </div>
                 <div className="text-sm font-bold text-slate-900 dark:text-slate-100">
