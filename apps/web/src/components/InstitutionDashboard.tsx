@@ -1362,7 +1362,7 @@ export const InstitutionDashboard: React.FC<InstitutionDashboardProps> = ({
                     ) : (
                       <div className="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 text-xs text-emerald-800 dark:text-emerald-300 space-y-1">
                         <div className="font-bold">✓ Response Submitted:</div>
-                        <div>"{def.responseExplanation}"</div>
+                        <div>&quot;{def.responseExplanation}&quot;</div>
                         {def.rectificationDocName && (
                           <div className="text-[11px] text-emerald-700 dark:text-emerald-400">
                             Attached Instrument: {def.rectificationDocName}
