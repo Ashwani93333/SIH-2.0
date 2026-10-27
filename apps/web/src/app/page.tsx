@@ -117,6 +117,8 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#FAF7F2]/60 dark:bg-slate-950/60 text-slate-900 dark:text-slate-100 flex flex-col font-sans antialiased relative z-10">
+      {/* Brightened Watermark for All Dashboard Pages */}
+      <div className="dashboard-watermark-bg" aria-hidden="true" />
       {/* Top Universal Header with Timeline, Profile & Gateway Return */}
       <Navbar
         currentRole={currentRole}

@@ -55,6 +55,25 @@ body {
 
 
 
+/* SATC / AICTE Subtle Background Watermark (Unified across all pages: min(384px, 48vw), opacity 0.11, static) */
+body::before {
+  content: "";
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(384px, 48vw);
+  height: min(384px, 48vw);
+  background-image: url("aicte-logo.png");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.11;
+  pointer-events: none;
+  z-index: 0;
+  animation: none !important;
+}
+
 /* Announcement Top Bar */
 .statutory-banner {
   background-color: #1A1D20;

@@ -66,40 +66,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Right Controls: Timeline Simulator, Theme, Role Selector & User Profile */}
           <div className="flex items-center gap-2.5 sm:gap-3.5 shrink-0">
-            {/* Timeline Controls */}
-            <div className="flex items-center bg-slate-50 dark:bg-slate-800/80 rounded-lg p-1 border border-slate-200 dark:border-slate-700 text-xs shadow-2xs">
-              <div className="flex items-center gap-1.5 px-2 py-0.5 font-medium text-slate-600 dark:text-slate-300">
-                <span className="text-slate-400">📅</span>
-                <span className="font-semibold text-slate-900 dark:text-slate-100 tabular-nums text-xs">
-                  {formattedDate}
-                </span>
-                <span className="text-[10px] bg-emerald-100 text-emerald-700 font-semibold px-1.5 py-0.2 rounded dark:bg-emerald-950/60 dark:text-emerald-300 tabular-nums">
-                  Day +{simulatedDays}
-                </span>
-              </div>
-              <div className="h-4 w-[1px] bg-slate-200 dark:bg-slate-700 mx-1" />
-              <button
-                onClick={() => onAdvanceDays(1)}
-                className="px-2 py-1 rounded bg-white hover:bg-slate-100 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 font-semibold text-[11px] shadow-2xs transition-colors cursor-pointer"
-                title="Advance timeline by 1 day"
-              >
-                +1 Day
-              </button>
-              <button
-                onClick={() => onAdvanceDays(5)}
-                className="ml-1 px-2 py-1 rounded bg-white hover:bg-slate-100 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 font-semibold text-[11px] shadow-2xs transition-colors cursor-pointer"
-                title="Advance timeline by 5 days (monitors statutory SLA thresholds)"
-              >
-                +5 Days
-              </button>
-              <button
-                onClick={onResetDemo}
-                className="ml-1 px-2 py-1 rounded bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 font-medium text-[11px] transition-colors cursor-pointer"
-                title="Reset workflow timeline to current baseline"
-              >
-                Reset
-              </button>
-            </div>
+
 
             {/* Dark / Light Theme Toggle */}
             <ThemeToggle />

@@ -121,10 +121,12 @@ export const OnboardingPortal: React.FC<OnboardingPortalProps> = ({ onLogin }) =
 
   return (
     <div
-      className={`min-h-screen bg-[#FAF7F2]/80 dark:bg-slate-950/60 text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-all duration-200 relative z-10 ${
+      className={`min-h-screen text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-all duration-200 relative z-10 overflow-hidden ${
         fontSizeOffset === 1 ? "text-base" : fontSizeOffset === -1 ? "text-xs" : "text-sm"
       }`}
     >
+      {/* Homepage-specific Watermark (opacity 0.11, static) */}
+      <div className="homepage-watermark-bg" aria-hidden="true" />
       {/* ========================================================================= */}
       {/* 1. TOP STATUTORY GOVT BAR (GIGW 3.0 / UX4G STANDARD) */}
       {/* ========================================================================= */}
@@ -695,8 +697,14 @@ export const OnboardingPortal: React.FC<OnboardingPortalProps> = ({ onLogin }) =
             <div className="lg:col-span-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-7 space-y-5 shadow-sm">
               {/* Photo Banner with Badges matching Screenshot 1 & 2 */}
               <div className="relative rounded-2xl overflow-hidden bg-slate-900 aspect-16/9 flex items-end p-4 border border-slate-200 dark:border-slate-800">
-                {/* Background visual texture */}
-                <div className="absolute inset-0 bg-linear-to-tr from-slate-950 via-slate-900 to-slate-950 opacity-90"></div>
+                {/* College Campus Hero Background Image - Brightened & clearly visible */}
+                <div 
+                  className="absolute inset-0 bg-cover bg-center bg-no-repeat brightness-110 contrast-105"
+                  style={{ backgroundImage: "url('/backend/app/static/images/college_campus_hero.png')" }}
+                />
+                {/* Subtle dark gradient overlay to ensure badge readability while keeping building visible */}
+                <div className="absolute inset-0 bg-linear-to-t from-slate-950/75 via-slate-950/25 to-transparent"></div>
+                {/* Dotted texture */}
                 <div className="absolute inset-0 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:16px_16px] opacity-20"></div>
 
                 {/* Watermark / Badge Overlay */}
